@@ -1,0 +1,49 @@
+# ══════════════════════════════════════════════════════════════════
+#  OneXpert Servicios · Apache · v12
+# ══════════════════════════════════════════════════════════════════
+
+
+
+# ── 1 · Página de error 404 (404.html, con Expertito) ──────────────
+#  La ruta es ABSOLUTA desde la raíz del dominio:
+#    · Sitio de prueba  kreatividademocional.com/servicio/ →  /servicio/404.html
+#    · Producción       servicios.onexpert.cl              →  /404.html
+#  Si cambias esta ruta, cambia también <base href> dentro de 404.html.
+#  En Nginx el equivalente es:  error_page 404 /404.html;
+ErrorDocument 404 /servicio/404.html
+
+
+
+# ── 2 · Cabeceras de seguridad ─────────────────────────────────────
+#  Refuerzan lo que ya hace la CSP de cada página. Solo se aplican si el
+#  servidor tiene activo mod_headers (casi todos los hostings lo tienen).
+<IfModule mod_headers.c>
+  # el navegador no «adivina» tipos de archivo
+  Header always set X-Content-Type-Options "nosniff"
+  # ninguna otra web puede mostrar este sitio dentro de un marco (clickjacking)
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Content-Security-Policy "frame-ancestors 'self'"
+  # al salir hacia otro sitio solo se envía el dominio, no la dirección completa
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  # el sitio no usa cámara, micrófono, ubicación ni pagos
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+  # HTTPS obligatorio por un año. Actívalo SOLO cuando el certificado de
+  # servicios.onexpert.cl esté funcionando (quita el # de la línea siguiente).
+  # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+
+
+# ── 3 · Rendimiento: caché de archivos estáticos ───────────────────
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp  "access plus 6 months"
+  ExpiresByType image/jpeg  "access plus 6 months"
+  ExpiresByType image/png   "access plus 6 months"
+  ExpiresByType image/svg+xml "access plus 6 months"
+  ExpiresByType video/mp4   "access plus 6 months"
+  ExpiresByType video/webm  "access plus 6 months"
+  ExpiresByType text/css    "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType text/html   "access plus 0 seconds"
+</IfModule>

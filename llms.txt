@@ -1,0 +1,54 @@
+# OneXpert Servicios
+
+> OneXpert Servicios es el tercero administrador de siniestros (TPA) de OneXpert para compañías de seguros, corredores, sponsors y empresas en Chile. Administra los siniestros y reembolsos de la cartera con las reglas que fija la compañía, entrega al asegurado un portal para pedir y seguir sus reembolsos, liquida con un equipo experimentado en siniestros de vida y salud y genera dashboards y reportería para gestionar el riesgo. Lema: «Para la compañía, eficiencia y control. Para el asegurado, una experiencia humana.»
+
+Datos clave:
+
+- País: Chile. Idioma: español (es-CL).
+- Clientes: compañías de seguros, corredores de seguros, sponsors y empresas con seguros colectivos para sus colaboradores.
+- Modelo: tercero administrador (TPA). La compañía define las reglas de negocio y el alcance; OneXpert ejecuta la operación, detecta brechas, rediseña procesos y entrega indicadores.
+- Seguimiento del siniestro en línea: el asegurado, la compañía y el corredor ven en qué etapa está cada caso, con aviso automático en cada cambio.
+- Carga de documentos desde el teléfono con validación inmediata (documento ilegible o firma faltante se avisa al subirlo).
+- Portal del Asegurado con doble validación de identidad: solicitar reembolsos, revisar reembolsos históricos o en proceso y modificar datos de contacto.
+- Liquidación ágil y prolija: liquidadores experimentados en siniestros de vida y salud, certificados por un programa interno.
+- Reportería para gestión de riesgos: dashboards de comportamiento siniestral en línea, detección de desviaciones para medidas intervigencia, mapas de riesgo para programas de prevención y seguimiento de la gestión de salud.
+- Indicadores de servicio: SLA por tipo de siniestro medidos automáticamente, tablero de operación con acceso permanente y reporte mensual con promedios, desviaciones e indicadores de eficiencia.
+- Eventos de gran escala (terremotos, incendios): capacidad técnica, operacional y tecnológica para procesar peaks de siniestros con trazabilidad.
+- Integración: con o sin integración API con el sistema central de la compañía; se adapta a sus sistemas para capturar el 100 % de la data.
+- Seguridad: plataforma propia; cifrado en tránsito y en reposo, acceso a datos sensibles solo para personal autorizado y derechos de acceso, rectificación y supresión. Marco normativo: NCG 454, NCG 573, Ley N° 21.663, Ley N° 19.628 y Ley N° 21.719 (comenzaría a regir el 1 de diciembre de 2026).
+- Respaldo: más de veinte años del Grupo OneXpert liquidando siniestros.
+- La liquidación fiscalizada por la CMF (DFL 251) la realiza la unidad OneXpert Liquidadora: https://liquidadora.onexpert.cl/
+- Contacto comercial: comercial@onexpert.cl (lunes a viernes, 9:00 a 18:00 h). Asegurados y beneficiarios con un caso en curso: contigo@onexpert.cl.
+
+## Preguntas que responde este sitio
+
+- **¿Qué es un TPA en seguros?** Un TPA (tercero administrador) gestiona los siniestros por cuenta de la aseguradora: recepción, validación, evaluación técnica y comunicación, con las reglas que fija la compañía.
+- **¿Tengo que cambiar mis sistemas para trabajar con OneXpert?** No. OneXpert se acopla a los procesos de la compañía y les agrega valor.
+- **Si soy corredor, ¿me sirve OneXpert?** Sí. Permite consolidar la información de los clientes, auditar, generar reportería y contar con apoyo técnico actualizado para los estudios de renovación y el análisis de licitaciones.
+- **¿Cómo protegen los datos sensibles?** Con una plataforma tecnológica robusta en infraestructura propia, altos estándares de seguridad y cumplimiento normativo.
+- **¿Cuáles son los plazos de liquidación en Chile?** El informe debe emitirse dentro de 45 días corridos desde la denuncia, prorrogables por motivos fundados; los casos complejos admiten hasta 90 días. El artículo 61 del DFL 251 permite al asegurado exigir un liquidador registrado e independiente.
+- **¿Cómo mejora el NPS de una aseguradora con un TPA?** La experiencia del asegurado (saber en qué va su caso, recibir respuestas oportunas, pedir reembolsos sin fricción) termina reflejándose en el NPS de la compañía.
+- **¿Qué gana la empresa que contrata un seguro colectivo?** Historial y comportamiento de gasto de sus colaboradores, gestión de riesgo y reportería.
+
+## Páginas
+
+- [Inicio · Administración de siniestros TPA en Chile](https://onexpert.cl/): propuesta para compañías y asegurados, soluciones, respaldo, beneficios, preguntas frecuentes y contacto.
+- [Audiencias](https://onexpert.cl/#audiencias): una misma operación pensada para la compañía (costos predecibles y escalables) y para el asegurado (trazabilidad).
+- [Soluciones](https://onexpert.cl/#soluciones): tecnología stand-alone, gestión de siniestros, eventos de gran escala, enlaces tecnológicos e indicadores de servicio.
+- [Eventos de gran escala](https://onexpert.cl/#catastrofes): respuesta ante catástrofes.
+- [Respaldo](https://onexpert.cl/#respaldo): independencia técnica, especialización, tecnología propia y acompañamiento.
+- [Beneficios](https://onexpert.cl/#beneficios): propuesta de valor compartida; Portal del Asegurado, liquidación ágil y reportería para gestión de riesgos.
+- [Preguntas frecuentes](https://onexpert.cl/#preguntas): qué es un TPA, sistemas, corredores, datos sensibles y plazos de liquidación.
+- [Guías](https://onexpert.cl/guias/): biblioteca de guías prácticas para familias y compañías.
+- [Política de privacidad](https://onexpert.cl/privacidad/): datos que recoge el sitio, finalidades, proveedores y derechos según la Ley N° 21.719.
+
+## Guías (cada una con su propia página)
+
+- [Cómo administrar una indemnización: el primer año sin errores](https://onexpert.cl/guias/como-administrar-una-indemnizacion/): qué hacer con una indemnización de seguro de vida.
+- [Por qué los estudios de los hijos necesitan seguimiento después de un siniestro](https://onexpert.cl/guias/estudios-de-los-hijos-despues-de-un-siniestro/): la deserción aparece entre el primer y el tercer año.
+- [Qué pasa en las primeras 72 horas de una catástrofe](https://onexpert.cl/guias/primeras-72-horas-de-una-catastrofe/): qué debe hacer una aseguradora hora a hora.
+- [Choque o daño en tu auto: 6 pasos para denunciar bien el siniestro](https://onexpert.cl/guias/que-hacer-despues-de-un-choque/): qué hacer después de un choque para que el seguro responda.
+- [Reembolsos de salud: cómo enviar tus documentos sin rechazos](https://onexpert.cl/guias/reembolsos-de-salud-sin-rechazos/): documentos y motivos de rechazo más comunes.
+- [Accidentes personales: qué suele cubrir el seguro y cómo acreditar el siniestro](https://onexpert.cl/guias/seguro-de-accidentes-personales/): coberturas habituales y cómo cobrar.
+- [Cómo entrenar la operación de siniestros para los peaks](https://onexpert.cl/guias/preparar-la-operacion-de-siniestros-para-los-peaks/): cuándo conviene externalizar la gestión de siniestros a un TPA.
+- [Ley N° 21.719: qué exigirle a quien administra tus siniestros](https://onexpert.cl/guias/ley-21719-datos-sensibles-siniestros/): datos sensibles y derechos de las personas.

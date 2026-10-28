@@ -1,0 +1,41 @@
+# robots.txt · OneXpert Servicios · v9
+# Todo el sitio es público. Se permite explícitamente a los rastreadores
+# de buscadores con IA (GEO): así ChatGPT, Claude, Perplexity, Gemini y
+# Copilot pueden leer y citar el sitio.
+# Si algún día quieres que una IA NO use el sitio para ENTRENAR modelos
+# (pero sí para responder), cambia a «Disallow: /» solo en GPTBot,
+# ClaudeBot, Google-Extended y CCBot. Los buscadores (OAI-SearchBot,
+# Claude-SearchBot, PerplexityBot) son los que generan citas y visitas.
+
+User-agent: *
+Allow: /
+
+# Buscadores con IA (responden preguntas y citan la fuente)
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: Claude-SearchBot
+Allow: /
+User-agent: Claude-User
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Perplexity-User
+Allow: /
+User-agent: Bingbot
+Allow: /
+
+# Entrenamiento de modelos
+User-agent: GPTBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://servicios.onexpert.cl/sitemap.xml

@@ -1,0 +1,2 @@
+logo-onex.svg: logotipo oficial (LOGO ONEX.svg) recortado al contenido, colores originales #323333 y #548895, para fondos claros.
+logo-onex-blanco.svg: versión para fondo oscuro: «one» en blanco y «xpert» en #6A9EAA (teal de marca levemente aclarado para leerse sobre navy).

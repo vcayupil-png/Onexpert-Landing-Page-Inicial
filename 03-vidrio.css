@@ -1,0 +1,257 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   03 · VIDRIO LÍQUIDO Y FONDOS
+   ──────────────────────────────────────────────────────────────────────────
+   Aurora de fondo, superficies de vidrio, siluetas y fondos de sección.
+   Los colores vienen de css/01-tokens.css.
+
+   Cómo se construye el vidrio (de atrás hacia adelante):
+     1. backdrop-filter  desenfoca y satura la aurora que hay detrás
+     2. tinte oscuro     asegura el contraste del texto (--vidrio)
+     3. velo claro       degradado blanco muy suave arriba
+     4. grano            ruido SVG en modo soft-light
+     5. ::before         brillo especular que sigue al cursor (JS: --mx --my)
+     6. ::after          filo de luz de 1,6 px, más claro en las esquinas
+     7. sombras internas bisel: canto de luz arriba, volumen abajo
+
+   Uso en el HTML
+     class="vidrio"                      superficie estándar
+     class="vidrio vidrio--fuerte"       más opaca (formularios, textos largos)
+     class="vidrio vidrio--acanalado"    con costillas verticales
+     class="vidrio vidrio--tinte-1…4"    vidrio de color
+     class="vidrio vidrio--pildora"      cápsula (cabecera)
+
+   Índice
+     3.1  Aurora de fondo
+     3.2  Superficie de vidrio
+     3.3  Variantes
+     3.4  Navegadores sin backdrop-filter
+     3.5  Siluetas tenues
+     3.6  Secciones: transparente · banda · oscuro con foto
+     3.7  Fundido entre secciones (sin líneas duras)
+   ══════════════════════════════════════════════════════════════════════════ */
+
+
+
+
+/* ── 3.1  Aurora de fondo ──────────────────────────────────────────────────
+   Luces de color fijas detrás de todo. Se mueven muy lento y el vidrio
+   las refracta. Un velo oscuro encima protege el contraste.             */
+
+.aurora {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--navy-profundo);
+}
+
+.aurora__luz {
+  position: absolute;
+  width: 70vmax;
+  height: 70vmax;
+  border-radius: 50%;
+  filter: blur(20px);
+  will-change: transform;
+}
+.aurora__luz--1 { top: -30vmax; left: -20vmax; background: radial-gradient(circle, var(--aurora-1) 0%, transparent 62%); animation: deriva-1 34s ease-in-out infinite alternate; }
+.aurora__luz--2 { top: 20vh; right: -28vmax; background: radial-gradient(circle, var(--aurora-2) 0%, transparent 60%); animation: deriva-2 42s ease-in-out infinite alternate; }
+.aurora__luz--3 { bottom: -34vmax; left: 10vw; background: radial-gradient(circle, var(--aurora-3) 0%, transparent 62%); animation: deriva-3 48s ease-in-out infinite alternate; }
+.aurora__luz--4 { top: 40vh; left: -12vmax; width: 44vmax; height: 44vmax; background: radial-gradient(circle, var(--aurora-4) 0%, transparent 66%); animation: deriva-2 56s ease-in-out infinite alternate-reverse; }
+
+.aurora__velo { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11, 24, 34, 0.1), rgba(11, 24, 34, 0.35)); }
+
+/* retícula de puntos (textura de la Biblioteca de marca) */
+.aurora__trama {
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1.4px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse at 75% 15%, #000 0%, transparent 60%);
+          mask-image: radial-gradient(ellipse at 75% 15%, #000 0%, transparent 60%);
+}
+
+
+
+
+/* ── 3.2  Superficie de vidrio ─────────────────────────────────────────── */
+
+.vidrio {
+  --fondo-vidrio: var(--vidrio);
+  position: relative;
+  isolation: isolate;
+  border-radius: var(--radio);
+  background:
+    var(--grano),
+    linear-gradient(160deg, var(--vidrio-brillo), rgba(255, 255, 255, 0) 45%),
+    var(--fondo-vidrio);
+  background-size: 160px 160px, auto, auto;
+  background-blend-mode: soft-light, normal, normal;
+  -webkit-backdrop-filter: blur(var(--vidrio-desenfoque)) saturate(var(--vidrio-saturacion));
+          backdrop-filter: blur(var(--vidrio-desenfoque)) saturate(var(--vidrio-saturacion));
+  box-shadow:
+    inset 0 1.5px 0 0 rgba(255, 255, 255, calc(0.34 * var(--bisel))),        /* canto superior */
+    inset 0 -1.5px 0 0 rgba(255, 255, 255, calc(0.12 * var(--bisel))),       /* canto inferior */
+    inset 1.5px 0 0 0 rgba(255, 255, 255, calc(0.08 * var(--bisel))),        /* canto izquierdo */
+    inset -1.5px 0 0 0 rgba(255, 255, 255, calc(0.05 * var(--bisel))),       /* canto derecho */
+    inset 0 14px 22px -16px rgba(255, 255, 255, calc(0.32 * var(--bisel))),  /* volumen: luz arriba */
+    inset 0 -18px 26px -18px rgba(0, 0, 0, calc(0.55 * var(--bisel))),      /* volumen: sombra abajo */
+    0 30px 60px -30px rgba(0, 0, 0, 0.65);
+}
+
+/* brillo especular que sigue al cursor */
+.vidrio::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(480px circle at var(--mx, 20%) var(--my, -10%), rgba(255, 255, 255, 0.11), transparent 55%);
+  opacity: 0.6;
+  transition: opacity var(--t-medio) var(--curva);
+}
+.vidrio:hover::before { opacity: 1; }
+
+/* filo de luz */
+.vidrio::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.6px;
+  pointer-events: none;
+  background: linear-gradient(145deg,
+    rgba(255, 255, 255, 0.72) 0%,
+    rgba(255, 255, 255, 0.14) 22%,
+    rgba(255, 255, 255, 0.03) 50%,
+    rgba(255, 255, 255, 0.12) 78%,
+    rgba(255, 255, 255, 0.46) 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+}
+
+
+
+
+/* ── 3.3  Variantes ────────────────────────────────────────────────────── */
+
+.vidrio--fuerte  { --fondo-vidrio: var(--vidrio-fuerte); }
+
+.vidrio--tinte-1 { --fondo-vidrio: linear-gradient(var(--tinte-1), var(--tinte-1)), var(--vidrio); }
+.vidrio--tinte-3 { --fondo-vidrio: linear-gradient(var(--tinte-3), var(--tinte-3)), var(--vidrio); }
+.vidrio--tinte-4 { --fondo-vidrio: linear-gradient(var(--tinte-4), var(--tinte-4)), var(--vidrio); }
+
+/* Cápsula: conserva un bisel fino (cabecera) */
+.vidrio--pildora {
+  border-radius: var(--pildora);
+  box-shadow:
+    inset 0 1.5px 0 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 0 rgba(255, 255, 255, 0.1),
+    inset 0 8px 14px -12px rgba(255, 255, 255, 0.3),
+    0 20px 40px -24px rgba(0, 0, 0, 0.7);
+}
+
+/* Vidrio estriado (llamados, cajas de cita, «Cómo ayuda» en guías) */
+.vidrio--acanalado {
+  background:
+    var(--grano),
+    var(--acanalado),
+    linear-gradient(160deg, var(--vidrio-brillo), rgba(255, 255, 255, 0) 45%),
+    var(--fondo-vidrio);
+  background-size: 160px 160px, auto, auto, auto;
+  background-blend-mode: soft-light, normal, normal, normal;
+}
+
+
+
+
+/* ── 3.4  Navegadores sin backdrop-filter ──────────────────────────────── */
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .vidrio { --vidrio: rgba(20, 36, 48, 0.94); --vidrio-fuerte: rgba(20, 36, 48, 0.97); }
+}
+
+
+
+
+/* ── 3.5  Siluetas tenues (forma de marca detrás del contenido) ────────── */
+
+.silueta {
+  position: absolute;
+  z-index: 0;
+  width: clamp(280px, 38vw, 560px);
+  height: auto;
+  color: var(--acento);
+  opacity: 0.08;
+  pointer-events: none;
+}
+.silueta--derecha { top: 8%; right: -6%; }
+.silueta--curva   { opacity: 0.05; }
+
+
+
+
+/* ── 3.6  Secciones ────────────────────────────────────────────────────────
+   .seccion                 transparente: se ve la aurora
+   .seccion--banda          franja apenas más clara
+   .seccion--oscuro         con foto de fondo (.fondo-foto) y velo (.fondo-velo)
+   .fondo-foto--difuso      foto muy difuminada (Audiencias)               */
+
+.seccion {
+  position: relative;
+  isolation: isolate;
+  padding-block: var(--seccion-y);
+  overflow: clip;
+}
+.seccion > .contenedor { position: relative; z-index: 1; }
+
+.seccion--banda {
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.022) 28%,
+    rgba(255, 255, 255, 0.022) 72%,
+    rgba(255, 255, 255, 0) 100%);
+}
+
+.seccion--oscuro a:not(.boton) { color: #FFFFFF; }
+
+.fondo-foto { position: absolute; inset: -16% 0; z-index: -2; }
+.fondo-foto img { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; }
+
+.fondo-velo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg,
+    rgba(11, 24, 34, 0.5) 0%,
+    rgba(11, 24, 34, 0.74) 24%,
+    rgba(11, 24, 34, 0.78) 76%,
+    rgba(11, 24, 34, 0.5) 100%);
+}
+
+.fondo-foto--difuso { inset: -6% -4%; }
+.fondo-foto--difuso img { opacity: 0.22; filter: blur(16px) saturate(0.8); }
+.fondo-foto--difuso::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(11, 24, 34, 0.2), rgba(11, 24, 34, 0.35) 25%, rgba(11, 24, 34, 0.35) 75%, rgba(11, 24, 34, 0.2));
+}
+
+
+
+
+/* ── 3.7  Fundido entre secciones ──────────────────────────────────────────
+   Las secciones con foto se funden arriba y abajo con una máscara
+   (--fundido = alto del degradado). El texto siempre empieza DESPUÉS del
+   fundido, nunca dentro de él.                                          */
+
+.seccion--oscuro,
+.seccion:has(> .fondo-foto) {
+  padding-block: max(var(--seccion-y), calc(var(--fundido) + 16px));
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 var(--fundido), #000 calc(100% - var(--fundido)), transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0, #000 var(--fundido), #000 calc(100% - var(--fundido)), transparent 100%);
+}

@@ -1,0 +1,28 @@
+{
+  "name": "OneXpert Servicios",
+  "short_name": "Servicios",
+  "description": "Tercero administrador (TPA) de siniestros para compañías de seguros, con acompañamiento al asegurado mediante el programa Onex Servicios.",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#152838",
+  "background_color": "#0B1822",
+  "lang": "es-CL",
+  "icons": [
+    {
+      "src": "/imagenes/favicon/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/imagenes/favicon/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/imagenes/favicon/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

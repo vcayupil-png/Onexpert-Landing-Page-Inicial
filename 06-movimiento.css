@@ -1,0 +1,316 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   06 · MOVIMIENTO
+   ──────────────────────────────────────────────────────────────────────────
+   Todo lo que se anima: entradas al desplazarse, íconos que se dibujan,
+   post-it escrito a mano, microanimaciones de íconos y @keyframes.
+   Al final: «reducir movimiento» e impresión.
+   El parallax lo calcula js/parallax.js.
+
+   Índice
+     6.1  Revelado al desplazarse
+     6.2  Entrada del hero
+     6.3  Íconos que se dibujan
+     6.4  Parallax
+     6.5  Post-it: entrada y escritura a mano
+     6.6  Cifras de Audiencias (reloj 24/7 · documento 100 %)
+     6.7  Microanimaciones de íconos (Indicadores y Respaldo)
+     6.8  Destello al llegar a un ancla
+     6.9  Animaciones con nombre (@keyframes)
+     6.10 Movimiento reducido
+     6.11 Impresión
+   ══════════════════════════════════════════════════════════════════════════ */
+
+
+
+
+/* ── 6.1  Revelado al desplazarse ──────────────────────────────────────────
+   class="revelar"                      sube desde abajo
+   data-revelar="izquierda | derecha"   entra de lado
+   data-retraso="1..6"                  escalona una rejilla
+   Solo se oculta con JS activo (clase .js en <html>).                  */
+
+.js .revelar { opacity: 0; translate: 0 40px; transition: opacity 1s var(--curva), translate 1.1s var(--curva); }
+.js .revelar[data-revelar="izquierda"] { translate: -60px 0; }
+.js .revelar[data-revelar="derecha"]   { translate: 60px 0; }
+.js .revelar.is-visible { opacity: 1; translate: 0 0; }
+
+.js .revelar[data-retraso="1"] { transition-delay: 0.08s; }
+.js .revelar[data-retraso="2"] { transition-delay: 0.16s; }
+.js .revelar[data-retraso="3"] { transition-delay: 0.24s; }
+.js .revelar[data-retraso="4"] { transition-delay: 0.32s; }
+.js .revelar[data-retraso="5"] { transition-delay: 0.40s; }
+.js .revelar[data-retraso="6"] { transition-delay: 0.48s; }
+
+/* las tarjetas apiladas solo se desvanecen: su posición la controla sticky */
+.js .apilada.revelar { translate: 0 0; }
+
+
+
+
+/* ── 6.2  Entrada del hero ─────────────────────────────────────────────── */
+
+.js .hero__texto > * { opacity: 0; translate: 0 26px; animation: entrar 1.1s var(--curva) forwards; }
+.js .hero__texto > :nth-child(1) { animation-delay: 0.15s; }
+.js .hero__texto > :nth-child(2) { animation-delay: 0.30s; }
+.js .hero__texto > :nth-child(3) { animation-delay: 0.45s; }
+.js .hero__texto > :nth-child(4) { animation-delay: 0.60s; }
+
+
+
+
+/* ── 6.3  Íconos que se dibujan ────────────────────────────────────────────
+   Los trazos llevan pathLength="1": dentro de un .revelar el ícono se
+   dibuja cuando aparece.                                               */
+
+.js .revelar .icono-trazo :is(path, circle, rect, line, polyline, ellipse),
+.js .revelar .mosaico__icono :is(path, circle, rect, line, polyline, ellipse) {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.6s 0.3s var(--curva);
+}
+.js .revelar.is-visible .icono-trazo :is(path, circle, rect, line, polyline, ellipse),
+.js .revelar.is-visible .mosaico__icono :is(path, circle, rect, line, polyline, ellipse) { stroke-dashoffset: 0; }
+
+
+
+
+/* ── 6.4  Parallax ─────────────────────────────────────────────────────── */
+
+[data-parallax]   { will-change: translate; }
+[data-desvanecer] { will-change: opacity, translate; }
+
+
+
+
+/* ── 6.5  Post-it: entrada y escritura a mano ──────────────────────────────
+   Entra «pegándose» con un rebote. js/v8.js parte el título en letras y
+   las escribe una a una (con un lápiz que acompaña); luego se dibuja el
+   subrayado y aparece el resto del texto.                              */
+
+.js .postit.revelar {
+  translate: 0 0;
+  scale: 0.9;
+  rotate: -6deg;
+  transition: opacity 0.7s var(--curva), scale 0.8s var(--resorte), rotate 0.9s var(--resorte);
+}
+.js .postit.revelar.is-visible { scale: 1; rotate: 0deg; }
+
+.letra   { display: inline-block; white-space: pre; }
+.palabra { display: inline-block; white-space: nowrap; }
+
+.js .postit--escritura .letra {
+  clip-path: inset(-20% 100% -20% 0);
+  opacity: 0.2;
+  translate: -2px 0;
+  transition:
+    clip-path 0.16s steps(4, end) calc(var(--i) * 52ms + 250ms),
+    opacity 0.16s linear calc(var(--i) * 52ms + 250ms),
+    translate 0.2s ease-out calc(var(--i) * 52ms + 250ms);
+}
+.js .postit--escritura.is-escrito .letra { clip-path: inset(-20% -10% -20% 0); opacity: 1; translate: 0 0; }
+
+/* subrayado a mano */
+.postit__subrayado { display: block; width: 78%; height: 12px; margin-top: 0.35rem; overflow: visible; color: var(--postit-rotulo); }
+.postit__subrayado path { fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.js .postit--escritura.is-escrito .postit__subrayado path { stroke-dashoffset: 0; transition: stroke-dashoffset 0.7s var(--curva) var(--fin, 1.6s); }
+html:not(.js) .postit__subrayado path { stroke-dashoffset: 0; }
+
+/* el resto del texto aparece cuando termina de escribir */
+.js .postit--escritura > :not(.postit__titulo):not(.postit__rotulo) { opacity: 0; translate: 0 6px; transition: opacity 0.6s var(--curva), translate 0.6s var(--curva); }
+.js .postit--escritura.is-escrito > :not(.postit__titulo):not(.postit__rotulo) { opacity: 1; translate: 0 0; transition-delay: calc(var(--fin, 1.6s) + 0.25s); }
+
+/* lápiz que acompaña la escritura */
+.postit__lapiz {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  width: 26px;
+  height: 26px;
+  color: var(--postit-tinta);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 70ms linear, opacity 0.3s;
+}
+.postit__lapiz svg { width: 100%; height: 100%; }
+
+
+
+
+/* ── 6.6  Cifras de Audiencias ─────────────────────────────────────────── */
+
+/* Reloj 24/7: aguja que gira + onda que late */
+.anim-reloj__aguja   { transform-origin: 38px 38px; animation: girar 4s linear infinite; }
+.anim-reloj__minutos { transform-origin: 38px 38px; animation: girar 48s linear infinite; }
+.anim-onda           { transform-origin: 38px 38px; animation: onda-lottie 2.4s ease-out infinite; }
+.anim-onda--2        { animation-delay: 1.2s; }
+
+/* Documento 100 %: sube, se valida (check que se dibuja) y vuelve a empezar */
+.anim-doc__hoja  { animation: doc-sube 3.2s var(--curva) infinite; }
+.anim-doc__check { stroke-dasharray: 1; stroke-dashoffset: 1; animation: doc-check 3.2s var(--curva) infinite; }
+.anim-doc__barra { transform-origin: 18px 66px; animation: doc-barra 3.2s var(--curva) infinite; }
+
+
+
+
+/* ── 6.7  Microanimaciones de íconos ───────────────────────────────────────
+   Lentas, continuas y de poco recorrido. Arrancan cuando el ícono termina
+   de dibujarse (la tarjeta recibe .is-visible).                         */
+
+.mi svg { overflow: visible; }
+.mi :is(g, path, circle) { transform-box: view-box; }
+.mosaico__tarjeta:hover .mi svg { filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.35)); }
+.rasgo:hover .mi svg { filter: drop-shadow(0 0 8px rgba(var(--acento-rgb), 0.45)); transition: filter var(--t-medio); }
+
+
+/* Indicadores · SLA: agujas que giran */
+.revelar.is-visible .mi-sla__min  { transform-origin: 16px 16px; animation: girar 8s linear 1.6s infinite; }
+.revelar.is-visible .mi-sla__hora { transform-origin: 16px 16px; animation: girar 96s linear 1.6s infinite; }
+
+/* Indicadores · Tablero: barras en vivo */
+.mi-barra { transform-origin: 0 20.5px; }
+.revelar.is-visible .mi-barra    { animation: mi-barra 2.8s ease-in-out 1.8s infinite alternate; }
+.revelar.is-visible .mi-barra--2 { animation-delay: 2.1s; animation-duration: 3.4s; }
+.revelar.is-visible .mi-barra--3 { animation-delay: 2.4s; animation-duration: 2.4s; }
+.revelar.is-visible .mi-barra--4 { animation-delay: 1.9s; animation-duration: 3.1s; }
+
+/* Indicadores · Reportería: la hoja se asienta, la curva se traza y el dato late */
+.revelar.is-visible .mi-reporte__hoja { animation: mi-hoja 5s var(--curva) 2s infinite; }
+.js .revelar .mosaico__icono .mi-reporte__curva { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.js .revelar.is-visible .mosaico__icono .mi-reporte__curva { animation: mi-curva 5s var(--curva) 2s infinite; }
+.mi-reporte__dato { opacity: 0; transform-origin: 21.2px 14.8px; }
+.revelar.is-visible .mi-reporte__dato { animation: mi-dato 5s ease-out 2s infinite; }
+
+
+/* Respaldo · Independencia técnica: balanza en busca del equilibrio */
+.mi-balanza__brazo       { transform-origin: 16px 11.5px; }
+.mi-balanza__plato--izq  { transform-origin: 9.5px 11.5px; }
+.mi-balanza__plato--der  { transform-origin: 22.5px 11.5px; }
+.revelar.is-visible .mi-balanza__brazo { animation: mi-balanza 4.8s ease-in-out 1.8s infinite; }
+.revelar.is-visible .mi-balanza__plato { animation: mi-balanza-plato 4.8s ease-in-out 1.8s infinite; }
+
+/* Respaldo · Especialización: medalla que se mece y estrella que destella */
+.mi-medalla { transform-origin: 16px 4.5px; }
+.mi-medalla__estrella { transform-origin: 16px 17.2px; fill: currentColor; fill-opacity: 0; }
+.revelar.is-visible .mi-medalla { animation: mi-mece 5s ease-in-out 1.8s infinite; }
+.revelar.is-visible .mi-medalla__estrella { animation: mi-destello 5s ease-in-out 1.8s infinite; }
+
+/* Respaldo · Tecnología propia: un dato viaja de un sistema al otro */
+.js .revelar .icono-trazo .mi-tecno__dato { stroke-dasharray: 0.16 0.84; stroke-dashoffset: 0.16; opacity: 0; transition: none; }
+.js .revelar.is-visible .icono-trazo .mi-tecno__dato { animation: mi-dato-viaja 2.6s cubic-bezier(0.45, 0, 0.25, 1) 1.9s infinite; }
+.revelar.is-visible .mi-tecno__b { animation: mi-llega 2.6s ease-out 1.9s infinite; }
+
+/* Respaldo · Acompañamiento: el corazón late y la mano da un leve apretón */
+.mi-acompana__corazon { transform-origin: 16px 6px; }
+.mi-acompana__brazo   { transform-origin: 12.6px 19.2px; }
+.revelar.is-visible .mi-acompana__corazon { animation: mi-latido 2.4s ease-in-out 1.8s infinite; }
+.revelar.is-visible .mi-acompana__brazo   { animation: mi-apreton 4.8s ease-in-out 1.8s infinite; }
+
+
+
+
+/* ── 6.8  Destello al llegar a un ancla (js/v10.js) ────────────────────── */
+
+.is-destino { animation: destino 1.8s var(--curva) 0.2s 1; }
+
+
+
+
+/* ── 6.9  Animaciones con nombre ───────────────────────────────────────── */
+
+/* entradas y fondo */
+@keyframes entrar        { to { opacity: 1; translate: 0 0; } }
+@keyframes hero-acercar  { from { transform: scale(1.16); } to { transform: scale(1.04); } }
+@keyframes deriva-1      { from { transform: translate(0, 0) scale(1); }    to { transform: translate(12vw, 8vh) scale(1.15); } }
+@keyframes deriva-2      { from { transform: translate(0, 0) scale(1.1); }  to { transform: translate(-10vw, 12vh) scale(0.95); } }
+@keyframes deriva-3      { from { transform: translate(0, 0) scale(0.95); } to { transform: translate(8vw, -10vh) scale(1.1); } }
+@keyframes flotar        { 0%, 100% { translate: 0 0; } 50% { translate: 0 -12px; } }
+@keyframes girar         { to { rotate: 360deg; } }
+@keyframes latido        { 0%, 100% { scale: 1; opacity: 1; } 50% { scale: 0.6; opacity: 0.6; } }
+@keyframes forma-respira {
+  0%   { border-radius: 32% 68% 62% 38% / 38% 34% 66% 62%; }
+  50%  { border-radius: 58% 42% 34% 66% / 62% 52% 48% 38%; }
+  100% { border-radius: 40% 60% 70% 30% / 45% 66% 34% 55%; }
+}
+
+/* bokeh de Audiencias */
+@keyframes bokeh-deriva  { from { transform: translate(0, 0); } to { transform: translate(var(--mx), var(--my)); } }
+@keyframes bokeh-respira { from { opacity: calc(var(--o, 0.6) * 0.55); scale: 0.92; } to { opacity: var(--o, 0.6); scale: 1.06; } }
+
+/* cifras */
+@keyframes onda-lottie { 0% { scale: 0.7; opacity: 0.7; } 100% { scale: 1.35; opacity: 0; } }
+@keyframes doc-sube    { 0% { translate: 0 14px; opacity: 0; } 18%, 82% { translate: 0 0; opacity: 1; } 100% { translate: 0 -6px; opacity: 0; } }
+@keyframes doc-check   { 0%, 40% { stroke-dashoffset: 1; } 60%, 88% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes doc-barra   { 0% { scale: 0 1; } 40%, 90% { scale: 1 1; } 100% { scale: 1 1; opacity: 0; } }
+
+/* microanimaciones */
+@keyframes mi-barra         { 0% { scale: 1 1; } 50% { scale: 1 0.55; } 100% { scale: 1 1.12; } }
+@keyframes mi-hoja          { 0%, 100% { translate: 0 0; } 10% { translate: 0 -1px; } 22% { translate: 0 0; } }
+@keyframes mi-curva         { 0%, 12% { stroke-dashoffset: 1; } 46%, 86% { stroke-dashoffset: 0; opacity: 1; } 96%, 100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes mi-dato          { 0%, 44% { opacity: 0; scale: 0.2; } 50% { opacity: 1; scale: 1.5; } 58%, 86% { opacity: 1; scale: 1; } 96%, 100% { opacity: 0; scale: 1; } }
+@keyframes mi-balanza       { 0%, 100% { rotate: 0deg; } 25% { rotate: -5deg; } 60% { rotate: 3.5deg; } 82% { rotate: -1deg; } }
+@keyframes mi-balanza-plato { 0%, 100% { rotate: 0deg; } 25% { rotate: 5deg; } 60% { rotate: -3.5deg; } 82% { rotate: 1deg; } }
+@keyframes mi-mece          { 0%, 100% { rotate: 0deg; } 30% { rotate: 6deg; } 65% { rotate: -4deg; } }
+@keyframes mi-destello      { 0%, 40%, 100% { scale: 1; fill-opacity: 0; } 52% { scale: 1.22; fill-opacity: 0.55; } 64% { scale: 1; fill-opacity: 0.2; } }
+@keyframes mi-dato-viaja    { 0% { stroke-dashoffset: 0.16; opacity: 0; } 12% { opacity: 1; } 78% { opacity: 1; } 92%, 100% { stroke-dashoffset: -0.84; opacity: 0; } }
+@keyframes mi-llega         { 0%, 78% { fill: currentColor; fill-opacity: 0; } 86% { fill-opacity: 0.28; } 100% { fill-opacity: 0; } }
+@keyframes mi-latido        { 0%, 40%, 100% { scale: 1; } 12% { scale: 1.28; } 24% { scale: 0.96; } 30% { scale: 1.14; } }
+@keyframes mi-apreton       { 0%, 100% { rotate: 0deg; } 20% { rotate: -3deg; } 34% { rotate: 0deg; } }
+
+/* formulario, cita y anclas */
+@keyframes sacudida    { 0%, 100% { translate: 0 0; } 20% { translate: -6px 0; } 40% { translate: 5px 0; } 60% { translate: -3px 0; } 80% { translate: 2px 0; } }
+@keyframes cita-entra  { from { opacity: 0; scale: 0.94; translate: 0 14px; } to { opacity: 1; scale: 1; translate: 0 0; } }
+@keyframes cita-brillo { from { filter: saturate(1) brightness(1); } to { filter: saturate(1.12) brightness(1.07); } }
+@keyframes destino {
+  0%   { box-shadow: 0 0 0 0 rgba(var(--acento-rgb), 0); }
+  30%  { box-shadow: 0 0 0 3px rgba(var(--acento-rgb), 0.55); }
+  100% { box-shadow: 0 0 0 0 rgba(var(--acento-rgb), 0); }
+}
+
+
+
+
+/* ── 6.10  Movimiento reducido ─────────────────────────────────────────────
+   Si el sistema pide reducir el movimiento: todo quieto y visible.     */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+
+  .js .revelar,
+  .js .hero__texto > * { opacity: 1; translate: 0 0; }
+  .js .revelar :is(path, circle, rect, line, polyline, ellipse) { stroke-dashoffset: 0; }
+  [data-parallax], [data-desvanecer] { translate: none !important; opacity: 1 !important; }
+  .apilada { position: relative; top: auto !important; }
+  .aurora__luz { animation: none; }
+
+  .postit, .postit:hover { transition: none; }
+  .postit:hover { transform: rotate(var(--postit-giro)); }
+  .js .postit--escritura .letra { clip-path: none; opacity: 1; translate: 0 0; }
+  .js .postit--escritura > * { opacity: 1 !important; translate: 0 0 !important; }
+  .postit__subrayado path { stroke-dashoffset: 0; }
+
+  .pie__textura video { display: none; }
+  .nav__lente { transition: none; }
+
+  .bokeh, .mi *, .boton[data-bookings]:hover { animation: none !important; }
+  .mi-reporte__dato { opacity: 1; }
+  .js .revelar .icono-trazo .mi-tecno__dato { opacity: 0; }
+}
+
+
+
+
+/* ── 6.11  Impresión ───────────────────────────────────────────────────── */
+
+@media print {
+  .pie__textura, .nav__lente, .captcha { display: none; }
+  .postit { box-shadow: none; border: 1px solid #C9B23A; }
+  .cita__comillas { opacity: 0.08; }
+}

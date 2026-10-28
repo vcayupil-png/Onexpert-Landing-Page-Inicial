@@ -1,0 +1,1004 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   05 · SECCIONES
+   ──────────────────────────────────────────────────────────────────────────
+   Un bloque por sección de la página, en el MISMO orden en que aparecen en
+   index.html. Para encontrar algo: busca el id de la sección (#audiencias,
+   #respaldo…) o el nombre del bloque.
+
+   Índice
+     5.1   Hero
+     5.2   Audiencias · dos caras + bokeh (#audiencias)
+     5.3   Soluciones · macro-sección (#soluciones)
+     5.4   Soluciones · introducción: tarjetas apiladas + widgets (#tecnologia)
+     5.5   Soluciones · bloque 1: paneles horizontales (#como-ayudamos)
+     5.6   Soluciones · bloque 2: mosaico de tarjetas-imagen (#indicadores)
+     5.7   Soluciones · bloque 3: Respaldo, cita con foto (#respaldo)
+     5.8   Beneficios: bloque dividido + figura + post-it (#beneficios)
+     5.9   Preguntas frecuentes (#preguntas)
+     5.10  Guías: lecturas (#guias)
+     5.11  Compromiso: llamado final (#compromiso)
+     5.12  Contacto (#contacto)
+     5.13  Página «Política de privacidad»
+   ══════════════════════════════════════════════════════════════════════════ */
+
+
+
+
+/* ── 5.1  Hero ─────────────────────────────────────────────────────────────
+   Capas (data-parallax en el HTML):
+     .hero__foto      fotografía de fondo .............. 0,30
+     .hero__velo      degradado navy ................... fijo
+     .hero__texto     panel de vidrio con el texto ..... se aclara al bajar
+     .hero__figura    foto en forma orgánica + tarjetas flotantes + chips
+   Se funde por abajo con la sección siguiente (máscara).               */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  min-height: min(100svh, 960px);
+  padding: 140px 0 110px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - var(--fundido)), transparent 100%);
+          mask-image: linear-gradient(180deg, #000 calc(100% - var(--fundido)), transparent 100%);
+}
+
+.hero__foto { position: absolute; inset: -12% 0; z-index: -3; }
+.hero__foto img { width: 100%; height: 100%; object-fit: cover; opacity: 0.45; animation: hero-acercar 2.6s var(--curva) both; }
+
+.hero__velo {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(100deg, rgba(11, 24, 34, 0.94) 0%, rgba(11, 24, 34, 0.6) 50%, rgba(11, 24, 34, 0.45) 100%),
+    linear-gradient(0deg, var(--navy-profundo), transparent 30%);
+}
+
+.hero__rejilla {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: center;
+}
+
+.hero__texto { position: relative; z-index: 1; padding: clamp(1.8rem, 3.6vw, 3.2rem); border-radius: 32px; }
+.hero__titular { margin-bottom: 1.4rem; font-size: var(--fs-h1); letter-spacing: -0.02em; }
+.hero .bajada { max-width: 56ch; }
+
+
+/* Figura: foto en forma orgánica que respira + anillo + tarjetas flotantes */
+.hero__figura { position: relative; display: flex; flex-direction: column; align-items: center; margin: 0; }
+
+.hero__ilustracion {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 32% 68% 62% 38% / 38% 34% 66% 62%;
+  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.7);
+  animation: forma-respira 18s ease-in-out infinite alternate;
+}
+.hero__ilustracion img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: 30% 50%;
+  filter: saturate(1.42) contrast(1.06) brightness(1.04);   /* mano en el hombro: más viva */
+}
+
+.hero__anillo {
+  position: absolute;
+  inset: -6%;
+  z-index: -1;
+  border-radius: 45% 55% 52% 48% / 52% 46% 54% 48%;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+  animation: girar 40s linear infinite;
+}
+
+.flotante {
+  position: absolute;
+  display: grid;
+  gap: 0.1rem;
+  padding: 0.9rem 1.2rem;
+  border-radius: 18px;
+  animation: flotar 7s ease-in-out infinite;
+}
+.flotante b { font-size: 1.5rem; font-weight: 600; line-height: 1.1; color: #FFFFFF; }
+.flotante span { font-size: 0.78rem; color: var(--texto-suave); }
+.flotante--1 { left: -8%; bottom: 26%; }
+.flotante--2 { right: -4%; top: 8%; animation-delay: -3s; }
+
+/* chips bajo la imagen */
+.hero__sellos {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 1.6rem;
+  padding: 0;
+  list-style: none;
+}
+.hero__sellos .chip-liquido { animation: flotar 8s ease-in-out infinite; }
+.hero__sellos li:nth-child(2) { animation-delay: -2.6s; }
+.hero__sellos li:nth-child(3) { animation-delay: -5.2s; }
+
+@media (max-width: 960px) {
+  .hero__rejilla { grid-template-columns: 1fr; }
+  .hero__figura { max-width: 440px; margin-inline: auto; }
+  .flotante--1 { left: 0; bottom: 36%; }
+  .flotante--2 { right: 0; }
+  .hero__sellos { margin-top: 2.2rem; }
+}
+
+
+
+
+/* ── 5.2  Audiencias · dos caras ───────────────────────────────────────────
+   Dos tarjetas: Compañías y sponsors (dashboard) · Asegurados (madre e
+   hija que sobresalen del cuadro, con bokeh en movimiento detrás).
+   El arriba de .caras--sobresale deja lugar a las cabezas que sobresalen. */
+
+/* ancla del menú: deja ver la bajada (≈ 2 líneas) sobre las tarjetas */
+.ancla--audiencias { scroll-margin-top: 6rem; }
+
+.caras { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 2vw, 1.6rem); }
+.caras--sobresale { padding-top: clamp(48px, 7vw, 104px); }
+/* en escritorio las cabezas sobresalen al lado del texto: menos aire arriba */
+@media (min-width: 1200px) { .caras--sobresale { padding-top: 44px; } }
+@media (max-width: 880px) {
+  .caras { grid-template-columns: 1fr; }
+  .caras--sobresale .cara--sobresale { margin-top: calc(30vw + 1rem); }
+}
+
+.cara { overflow: hidden; transition: transform var(--t-medio) var(--curva); will-change: transform; }
+
+.cara__foto {
+  margin: 0;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(145deg, rgba(var(--acento-rgb), 0.5), var(--navy));
+}
+.cara__foto img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--curva); }
+.cara:hover .cara__foto img { transform: scale(1.05); }
+
+.cara__cuerpo { padding: clamp(1.4rem, 3vw, 2.2rem); }
+.cara h3 { margin: 0.8rem 0; font-size: var(--fs-h3-grande); font-weight: 500; line-height: 1.18; }
+.cara__cuerpo > p { color: var(--s); }
+.cara__cuerpo > p:not(.etiqueta):not(.cara__lista-titulo) { font-size: var(--fs-cuerpo-chico); }
+.cara__cuerpo > p + p { margin-top: 0.8rem; }
+.cara__lista-titulo {
+  margin: 1.4rem 0 0.7rem;
+  font-size: 0.7rem !important;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--t) !important;
+}
+
+
+/* Tarjeta «Compañías»: encuadre sobre los gráficos + viñeta suave */
+.cara__foto--dashboard { position: relative; }
+.cara__foto--dashboard img { object-position: 62% 46%; filter: saturate(1.18) contrast(1.08) brightness(1.06); }
+.cara__foto--dashboard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(70% 80% at 60% 48%, transparent 45%, rgba(11, 24, 34, 0.45) 100%);
+}
+
+
+/* Tarjeta «Asegurados»: la figura (PNG transparente) sale SOLO por arriba */
+.cara--sobresale { overflow: visible; }
+.cara__foto--sobresale {
+  position: relative;
+  overflow: visible;
+  background: none;
+  clip-path: inset(-60% 0 0 0);
+}
+.cara__foto--sobresale picture {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;   /* el borde recortado de la foto coincide con el borde derecho */
+}
+.cara__foto--sobresale img {
+  position: relative;
+  width: auto;
+  height: 150%;
+  max-height: none;
+  margin-inline: 0;
+  object-fit: contain;
+  filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.45));
+  transform-origin: bottom center;
+  transition: transform 1.2s var(--curva);
+}
+.cara--sobresale:hover .cara__foto--sobresale img { transform: scale(1.03); }
+
+/* el «cuadro» detrás: luz cálida */
+.cara__escena {
+  position: absolute;
+  inset: 0;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: var(--radio) var(--radio) 0 0;
+  background:
+    radial-gradient(circle at 18% 30%, rgba(255, 226, 180, 0.55) 0 5%, transparent 6%),
+    radial-gradient(circle at 80% 22%, rgba(255, 240, 210, 0.4) 0 4%, transparent 5%),
+    radial-gradient(circle at 70% 70%, rgba(249, 169, 146, 0.35) 0 7%, transparent 8%),
+    radial-gradient(circle at 30% 80%, rgba(255, 255, 255, 0.25) 0 3%, transparent 4%),
+    radial-gradient(120% 90% at 30% 10%, rgba(255, 214, 170, 0.75), rgba(238, 218, 206, 0.25) 55%, rgba(21, 40, 56, 0.6) 100%),
+    var(--navy);
+}
+.cara__escena::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  backdrop-filter: blur(1px);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 60%, rgba(11, 24, 34, 0.45));
+}
+
+/* luces bokeh: cada una con su posición, tamaño, color y ritmo (animación en 06) */
+.bokeh {
+  position: absolute;
+  z-index: 1;
+  left: var(--x);
+  top: var(--y);
+  width: var(--d);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, var(--c) 0 38%, rgba(255, 255, 255, 0) 70%);
+  filter: blur(var(--b, 3px));
+  opacity: var(--o, 0.6);
+  mix-blend-mode: screen;
+  animation:
+    bokeh-deriva var(--t, 16s) ease-in-out var(--r, 0s) infinite alternate,
+    bokeh-respira calc(var(--t, 16s) / 2.6) ease-in-out var(--r, 0s) infinite alternate;
+  will-change: transform, opacity;
+}
+.bokeh--1 { --x: 8%;  --y: 18%; --d: 22%; --c: rgba(255, 224, 170, 0.9);  --t: 18s; --mx: 14px;  --my: 10px;  --o: 0.55; }
+.bokeh--2 { --x: 70%; --y: 8%;  --d: 16%; --c: rgba(255, 240, 210, 0.85); --t: 14s; --mx: -12px; --my: 14px;  --r: -4s; }
+.bokeh--3 { --x: 60%; --y: 56%; --d: 26%; --c: rgba(249, 169, 146, 0.75); --t: 20s; --mx: -16px; --my: -12px; --r: -9s; --b: 5px; }
+.bokeh--4 { --x: 18%; --y: 66%; --d: 12%; --c: rgba(255, 255, 255, 0.7);  --t: 12s; --mx: 10px;  --my: -14px; --r: -2s; }
+.bokeh--5 { --x: 40%; --y: 26%; --d: 9%;  --c: rgba(255, 214, 150, 0.9);  --t: 11s; --mx: 12px;  --my: 8px;   --r: -6s; --b: 2px; }
+.bokeh--6 { --x: 84%; --y: 40%; --d: 13%; --c: rgba(255, 200, 160, 0.8);  --t: 15s; --mx: -10px; --my: -10px; --r: -11s; }
+.bokeh--7 { --x: 30%; --y: 4%;  --d: 18%; --c: rgba(255, 236, 200, 0.6);  --t: 22s; --mx: 18px;  --my: 12px;  --r: -14s; --b: 6px; --o: 0.45; }
+.bokeh--8 { --x: 4%;  --y: 44%; --d: 10%; --c: rgba(249, 169, 146, 0.8);  --t: 13s; --mx: 8px;   --my: -12px; --r: -7s; }
+
+
+
+
+/* ── 5.3  Soluciones · macro-sección ───────────────────────────────────────
+   Cuatro bloques bajo un mismo paraguas (el menú «Soluciones» queda activo
+   en todo el tramo):
+     intro #tecnologia → bloque 1 #como-ayudamos → bloque 2 #indicadores
+     → bloque 3 #respaldo
+   · entre bloques el aire es --bloque-y (menor que entre secciones)
+   · los titulares de los bloques bajan un paso (--fs-h2-sub)            */
+
+.macro { position: relative; }
+.macro > .seccion { padding-block: var(--bloque-y); }
+.macro > .seccion:first-child { padding-top: var(--seccion-y); }
+.macro > .seccion:last-child  { padding-bottom: var(--seccion-y); }
+
+.macro__bloque .titular { font-size: var(--fs-h2-sub); }
+.macro__bloque .cabeza { margin-bottom: clamp(26px, 3.2vw, 42px); }
+
+/* la franja del bloque 2 se funde con los bloques vecinos */
+.macro .seccion--banda {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.02) 20%, rgba(255, 255, 255, 0.02) 80%, rgba(255, 255, 255, 0) 100%);
+}
+
+/* el titular de la introducción no se mete bajo el post-it «No olvidar 2027» */
+@media (min-width: 961px) {
+  #tecnologia .cabeza { max-width: min(680px, calc(100% - 400px)); }
+}
+
+
+
+
+/* ── 5.4  Soluciones · introducción: tarjetas apiladas + widgets ───────────
+   Cada tarjeta se fija (sticky) un poco más abajo que la anterior; la que
+   queda detrás se achica levemente (JS escribe --escala).
+   Los widgets son maquetas de interfaz en HTML sobre la foto.          */
+
+.apiladas { display: grid; gap: 7vh; }
+
+.apilada {
+  position: sticky;
+  top: 110px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.4rem, 4vw, 3.6rem);
+  min-height: min(72vh, 580px);
+  padding: clamp(1.4rem, 3vw, 2.4rem);
+  transform: scale(var(--escala, 1));
+  transform-origin: center top;
+  transition: transform 0.2s linear;
+}
+.apilada:nth-child(2) { top: 128px; }
+.apilada:nth-child(3) { top: 146px; }
+
+.apilada__texto { display: flex; flex-direction: column; justify-content: center; padding: clamp(0rem, 2vw, 1.6rem); }
+.apilada__rotulo { margin-bottom: 0.8rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--m); }
+.apilada h3 { margin-bottom: 1rem; font-size: var(--fs-h3-grande); font-weight: 400; line-height: 1.18; letter-spacing: -0.025em; }
+.apilada__texto > p { color: var(--s); }
+.apilada__texto > .lista-check { margin-top: 1.2rem; }
+
+.apilada__media {
+  position: relative;
+  overflow: hidden;
+  min-height: 320px;
+  border-radius: calc(var(--radio) - 6px);
+  background: linear-gradient(145deg, rgba(var(--acento-rgb), 0.5), var(--navy));
+}
+.apilada__media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.apilada__media > img[src*="mujer-firmando"] { object-position: 50% 35%; }
+.apilada__media > img[src*="dashboard-"] { object-position: 50% 82%; filter: saturate(1.12) contrast(1.05); }   /* la tablet está abajo en la foto */
+
+.apilada__widget {
+  position: absolute;
+  left: clamp(1rem, 2.4vw, 1.8rem);
+  right: clamp(1rem, 2.4vw, 1.8rem);
+  bottom: clamp(1rem, 2.4vw, 1.8rem);
+  display: flex;
+}
+
+/* en móvil o pantallas bajas no se apilan: se leen completas */
+@media (max-width: 880px), (max-height: 700px) {
+  .apilada { position: relative; }
+  .apilada:nth-child(n) { top: auto; }
+}
+@media (max-width: 880px) { .apilada { grid-template-columns: 1fr; } }
+
+
+/* Widget: tarjeta blanca de interfaz */
+.widget {
+  width: min(320px, 100%);
+  padding: 1.1rem 1.2rem;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--grafito);
+  border-radius: 14px;
+  background: #FFFFFF;
+  box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.5);
+}
+.widget__rotulo { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gris-texto); }
+.widget__titulo { margin-top: 0.15rem; font-size: 0.94rem; font-weight: 600; color: var(--navy); }
+.widget__texto { margin-top: 0.2rem; color: var(--gris-texto); }
+.widget__valor { margin-top: 0.3rem; font-size: 2rem; font-weight: 600; line-height: 1; letter-spacing: -0.03em; color: var(--navy); }
+.widget--aviso { display: flex; gap: 0.9rem; align-items: flex-start; }
+.widget__icono { flex: none; width: 38px; height: 38px; padding: 8px; color: #FFFFFF; border-radius: 10px; background: var(--navy); }
+
+/* pasos del siniestro */
+.w-pasos { display: grid; gap: 0.1rem; margin-top: 0.7rem; }
+.w-paso { display: flex; align-items: center; gap: 0.6rem; padding: 0.28rem 0; color: var(--gris-texto); }
+.w-paso__punto { display: grid; place-items: center; flex: none; width: 18px; height: 18px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px #C9D4D8; }
+.w-paso__punto svg { width: 10px; height: 10px; }
+.w-paso--hecho { color: var(--navy); }
+.w-paso--hecho .w-paso__punto { color: #FFFFFF; background: var(--navy); box-shadow: none; }
+.w-paso--actual { font-weight: 600; color: var(--navy); }
+.w-paso--actual .w-paso__punto { box-shadow: inset 0 0 0 2px var(--acento-fuerte); }
+.w-paso--actual .w-paso__punto::after { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--acento-fuerte); animation: latido 1.8s ease-in-out infinite; }
+
+/* barras que suben al aparecer */
+.w-barras { display: flex; align-items: flex-end; gap: 6px; height: 48px; margin-top: 0.8rem; }
+.w-barras span {
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+  background: rgba(var(--acento-rgb), 0.35);
+  transform-origin: bottom;
+  transform: scaleY(0.15);
+  transition: transform 1s var(--curva);
+}
+.w-barras span:last-child { background: var(--acento-fuerte); }
+.w-barras span:nth-child(1) { height: 40%; }
+.w-barras span:nth-child(2) { height: 65%; }
+.w-barras span:nth-child(3) { height: 52%; }
+.w-barras span:nth-child(4) { height: 80%; }
+.w-barras span:nth-child(5) { height: 70%; }
+.w-barras span:nth-child(6) { height: 95%; }
+.apilada.is-visible .w-barras span { transform: scaleY(1); }
+.apilada.is-visible .w-barras span:nth-child(2) { transition-delay: 0.08s; }
+.apilada.is-visible .w-barras span:nth-child(3) { transition-delay: 0.16s; }
+.apilada.is-visible .w-barras span:nth-child(4) { transition-delay: 0.24s; }
+.apilada.is-visible .w-barras span:nth-child(5) { transition-delay: 0.32s; }
+.apilada.is-visible .w-barras span:nth-child(6) { transition-delay: 0.40s; }
+html:not(.js) .w-barras span { transform: none; }
+
+
+
+
+/* ── 5.5  Soluciones · bloque 1: paneles horizontales ──────────────────────
+   En escritorio la sección se fija y los paneles avanzan a la izquierda al
+   bajar (js/interacciones.js §5 añade .is-activo y mueve la pista).
+   Sin JS, en móvil o con «reducir movimiento»: uno bajo el otro.
+   Tarjetas de vidrio translúcido con halo neón; detrás hay dos luces de
+   color para que el vidrio refracte algo visible.                       */
+
+.seccion--horizontal { overflow: visible; }
+
+.horizontal__cabeza {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: clamp(28px, 4vh, 48px);
+}
+.horizontal__cabeza .titular { max-width: 22ch; margin-bottom: 0; }
+.horizontal__contador { font-size: 0.9rem; color: var(--s); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.horizontal__contador b { font-size: 1.6rem; font-weight: 600; color: var(--t); }
+
+.horizontal__pista { display: grid; gap: 1.2rem; max-width: var(--ancho-max); margin-inline: auto; padding-inline: var(--margen); }
+
+.horizontal__barra { height: 2px; margin-top: 1.6rem; background: var(--l); background-clip: content-box; }
+.horizontal__barra span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: left;
+  transform: scaleX(var(--avance, 0));
+  background: var(--t);
+}
+.horizontal:not(.is-activo) .horizontal__barra,
+.horizontal:not(.is-activo) .horizontal__contador { display: none; }
+
+
+/* luces de fondo que se ven a través del vidrio */
+.seccion--horizontal .horizontal__fijo { position: relative; isolation: isolate; }
+.seccion--horizontal .horizontal__fijo::before,
+.seccion--horizontal .horizontal__fijo::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(60px);
+  opacity: 0.85;
+}
+.seccion--horizontal .horizontal__fijo::before {
+  width: min(48vw, 640px);
+  left: 8%;
+  top: 30%;
+  background: radial-gradient(circle, rgba(var(--acento-rgb), 0.55), rgba(var(--acento-rgb), 0) 65%);
+  animation: deriva-1 26s ease-in-out infinite alternate;
+}
+.seccion--horizontal .horizontal__fijo::after {
+  width: min(42vw, 560px);
+  right: 6%;
+  top: 18%;
+  background: radial-gradient(circle, rgba(80, 170, 255, 0.4), rgba(80, 170, 255, 0) 65%);
+  animation: deriva-2 32s ease-in-out infinite alternate;
+}
+
+
+/* Panel (tarjeta de vidrio translúcido) */
+.panel-h {
+  --fondo-vidrio: rgba(12, 24, 34, 0.26);
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(1.2rem, 2.6vw, 2.2rem);
+  padding: clamp(1.4rem, 2.6vw, 2.2rem);
+  border-radius: 34px;
+  background:
+    var(--grano),
+    radial-gradient(90% 70% at 0% 0%, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0) 55%),
+    radial-gradient(70% 60% at 100% 100%, rgba(var(--acento-rgb), 0.16), rgba(var(--acento-rgb), 0) 60%),
+    var(--fondo-vidrio);
+  background-size: 160px 160px, auto, auto, auto;
+  background-blend-mode: soft-light, normal, normal, normal;
+  -webkit-backdrop-filter: blur(22px) saturate(190%);
+          backdrop-filter: blur(22px) saturate(190%);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.42),
+    inset 0 -1.5px 0 rgba(255, 255, 255, 0.12),
+    inset 1.5px 0 0 rgba(255, 255, 255, 0.08),
+    inset 0 16px 26px -18px rgba(255, 255, 255, 0.3),
+    inset 0 -20px 30px -20px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(var(--acento-rgb), 0.14),
+    0 0 36px -14px rgba(var(--acento-rgb), 0.4),           /* halo neón */
+    0 40px 80px -40px rgba(0, 0, 0, 0.8);
+  transition: box-shadow var(--t-medio) var(--curva), transform var(--t-medio) var(--curva);
+}
+.panel-h:hover {
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1.5px 0 rgba(255, 255, 255, 0.14),
+    inset 1.5px 0 0 rgba(255, 255, 255, 0.1),
+    inset 0 16px 26px -18px rgba(255, 255, 255, 0.36),
+    inset 0 -20px 30px -20px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(var(--acento-rgb), 0.24),
+    0 0 50px -12px rgba(var(--acento-rgb), 0.55),
+    0 40px 80px -40px rgba(0, 0, 0, 0.8);
+}
+.panel-h::after {                        /* filo de luz neón */
+  padding: 1.6px;
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.55) 0%, rgba(var(--acento-rgb), 0.5) 22%, rgba(255, 255, 255, 0.04) 45%, rgba(255, 255, 255, 0.03) 70%, rgba(110, 190, 255, 0.45) 100%);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .panel-h { --fondo-vidrio: rgba(20, 36, 48, 0.9); }
+}
+
+/* texto: número pegado al título, todo centrado en vertical */
+.panel-h__texto { display: flex; flex-direction: column; justify-content: center; }
+.panel-h__numero {
+  display: inline-block;
+  align-self: flex-start;
+  margin: 0 0 0.35rem;
+  font-size: clamp(2.4rem, 1.6rem + 2vw, 3.6rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--acento);
+  opacity: 0.78;
+}
+.panel-h h3 { margin: 0 0 0.8rem; font-size: var(--fs-h3-grande); font-weight: 500; line-height: 1.18; }
+.panel-h__texto > p:not(.panel-h__numero) {
+  max-width: 46ch;
+  font-size: clamp(1.02rem, 0.96rem + 0.28vw, 1.14rem);
+  line-height: 1.6;
+  color: var(--texto);
+}
+
+/* foto con el mismo radio interior y brillo de borde */
+.panel-h__foto {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14), 0 20px 40px -24px rgba(0, 0, 0, 0.8);
+}
+.panel-h__foto img {
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  object-fit: cover;
+  border-radius: inherit;
+  transition: transform 1.2s var(--curva);
+}
+.panel-h:hover .panel-h__foto img { transform: scale(1.05); }
+.panel-h__foto img[src*="conexion-servidores"] { object-position: 60% 50%; }
+.panel-h__foto img[src*="familia-abrazo"] { object-position: 50% 30%; }
+
+@media (max-width: 760px) {
+  .panel-h { grid-template-columns: 1fr; }
+  .panel-h__foto img { min-height: 220px; max-height: 280px; }
+}
+
+
+/* modo horizontal fijo (escritorio) */
+.horizontal.is-activo { position: relative; }
+.horizontal.is-activo .horizontal__fijo {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding-top: 104px;                    /* deja libre la cápsula de la cabecera */
+  padding-bottom: 20px;
+}
+.macro .horizontal.is-activo .horizontal__fijo { padding-bottom: 12px; }
+.horizontal.is-activo .horizontal__cabeza { margin-bottom: clamp(18px, 3vh, 36px); }
+.horizontal.is-activo .horizontal__cabeza .rotulo { margin-bottom: 0.6rem; }
+.horizontal.is-activo .horizontal__cabeza .titular { max-width: 32ch; font-size: var(--fs-h2-sub); }
+.horizontal.is-activo .horizontal__barra { margin-top: clamp(10px, 2vh, 22px); }
+.horizontal.is-activo .horizontal__pista {
+  display: flex;
+  gap: 1.2rem;
+  max-width: none;
+  margin: 0;
+  padding-left: max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
+  padding-right: 8vw;
+  will-change: transform;
+}
+/* Alto = pantalla − cabecera − titular − barra. Si aun así un texto no
+   cabe, js/interacciones.js §5 apaga el modo horizontal.              */
+.horizontal.is-activo .panel-h {
+  flex: 0 0 min(86vw, 1120px);
+  height: clamp(400px, calc(100svh - 300px), 580px);
+  grid-template-columns: 1.3fr 0.7fr;
+}
+.horizontal.is-activo .panel-h__texto { min-height: 0; }
+.horizontal.is-activo .panel-h__foto img { min-height: 0; }
+
+
+
+
+/* ── 5.6  Soluciones · bloque 2: mosaico de tarjetas-imagen ────────────────
+   Fotos altas; al pasar el cursor la tarjeta se inclina en 3D
+   (data-inclinar) y la foto se acerca. Al hacer clic el detalle sube.  */
+
+.mosaico { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.8rem, 1.4vw, 1.2rem); }
+@media (max-width: 1024px) { .mosaico { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px)  { .mosaico { grid-template-columns: 1fr; } }
+
+.mosaico__tarjeta {
+  --t: #FFFFFF;
+  --s: var(--claro-sobre-oscuro);
+  --m: #FFFFFF;
+  --l: rgba(255, 255, 255, 0.2);
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: clamp(420px, 44vw, 580px);
+  overflow: hidden;
+  color: var(--claro-sobre-oscuro);
+  border-radius: var(--radio);
+  background: var(--navy);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 30px 60px -34px rgba(0, 0, 0, 0.8);
+  transition: transform var(--t-medio) var(--curva), box-shadow var(--t-medio) var(--curva);
+  will-change: transform;
+}
+
+.mosaico__foto { position: absolute; inset: 0; z-index: -2; }
+.mosaico__foto img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.04); transition: transform 1.4s var(--curva); }
+.mosaico__tarjeta:hover .mosaico__foto img { transform: scale(1.12); }
+.mosaico__foto img[src*="reporteria-mensual"] { object-position: 58% 40%; }
+
+/* velo que oscurece la parte baja; al abrir cubre toda la foto */
+.mosaico__tarjeta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(13, 28, 40, 0.05) 20%, rgba(13, 28, 40, 0.88) 78%);
+  transition: background-color var(--t-medio);
+}
+.mosaico__tarjeta.is-abierta::after {
+  background-color: rgba(11, 24, 34, 0.55);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+}
+
+.mosaico__boton {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+  padding: 2rem 1.8rem 1.6rem;
+  text-align: left;
+  color: inherit;
+  background: none;
+  border: 0;
+}
+.mosaico__icono { width: 46px; height: 46px; margin-bottom: 1rem; color: #FFFFFF; transition: transform var(--t-medio) var(--curva); }
+.mosaico__icono svg { width: 100%; height: 100%; stroke-width: 1.3; }
+.mosaico__tarjeta:hover .mosaico__icono { transform: translateY(-4px); }
+.mosaico__boton h3 { font-size: var(--fs-h3-grande); line-height: 1.18; }
+.mosaico__sub { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--claro-sobre-oscuro); }
+
+/* «Ver detalle» con un + que gira */
+.mosaico__mas { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 1.1rem; font-size: 0.84rem; font-weight: 600; color: #FFFFFF; }
+.mosaico__signo { position: relative; width: 26px; height: 26px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px currentColor; transition: transform var(--t-medio) var(--curva); }
+.mosaico__signo::before,
+.mosaico__signo::after { content: ""; position: absolute; top: 50%; left: 50%; width: 10px; height: 1.5px; margin: -0.75px 0 0 -5px; background: currentColor; }
+.mosaico__signo::after { transform: rotate(90deg); }
+.mosaico__tarjeta.is-abierta .mosaico__signo { transform: rotate(135deg); }
+.mosaico__boton .al-cerrar,
+.mosaico__tarjeta.is-abierta .al-abrir { display: none; }
+.mosaico__tarjeta.is-abierta .al-cerrar { display: inline; }
+
+/* detalle que sube */
+.mosaico__detalle {
+  display: grid;
+  grid-template-rows: 0fr;
+  grid-template-columns: 1fr;
+  padding-inline: 1.8rem;
+  font-size: 0.9rem;
+  transition: grid-template-rows var(--t-medio) var(--curva), padding var(--t-medio);
+}
+.mosaico__detalle > * { min-height: 0; overflow: hidden; }
+.mosaico__tarjeta.is-abierta .mosaico__detalle { grid-template-rows: 1fr; padding-bottom: 1.8rem; }
+.mosaico__detalle p + p { margin-top: 0.7rem; }
+
+
+
+
+/* ── 5.7  Soluciones · bloque 3: Respaldo ──────────────────────────────────
+   Rejilla de dos columnas:
+     izquierda  encabezado (rótulo, titular, bajada) + cita textual
+     derecha    foto, alineada con el titular (sube junto al encabezado)
+   Comillas grandes de fondo y un rectángulo de color detrás de la foto.
+   Para subir o bajar la foto: --foto-y en .cita.                        */
+
+.cita {
+  --foto-y: 2.6rem;                       /* distancia entre el borde superior y la foto */
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-areas:
+    "cabeza foto"
+    "texto  foto";
+  grid-template-rows: auto 1fr;
+  column-gap: clamp(2rem, 6vw, 6rem);
+  align-items: start;
+}
+.cita__cabeza { grid-area: cabeza; margin-bottom: clamp(18px, 2.4vw, 30px); }
+.cita__texto  { grid-area: texto; }
+.cita__foto   { grid-area: foto; }
+
+.cita__texto { position: relative; isolation: isolate; margin: 0; padding-top: clamp(2.2rem, 4vw, 3.4rem); }
+
+/* comillas como elemento gráfico de fondo */
+.cita__comillas {
+  position: absolute;
+  z-index: -1;
+  top: -0.26em;
+  left: -0.12em;
+  display: block;
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(18rem, 11rem + 17vw, 30rem);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--acento-frase);
+  opacity: 0.2;
+  pointer-events: none;
+  user-select: none;
+}
+
+.cita__texto p {
+  position: relative;
+  padding-left: clamp(1.4rem, 4vw, 3.2rem);
+  font-size: clamp(1.4rem, 1rem + 1.2vw, 2rem);
+  font-style: italic;
+  font-weight: 400;                       /* v12: un paso más liviana */
+  line-height: 1.32;
+  letter-spacing: -0.02em;
+  color: var(--t);
+}
+
+.cita__texto footer {
+  display: grid;
+  gap: 0.1rem;
+  margin-top: 1.4rem;
+  padding-left: clamp(1.4rem, 4vw, 3.2rem);
+  font-size: 0.92rem;
+}
+.cita__texto footer span {               /* «Liquidación de siniestros…» con un resaltado leve */
+  justify-self: start;
+  padding-inline: 0.15em;
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--texto);
+  background: linear-gradient(180deg, transparent 58%, rgba(var(--acento-rgb), 0.28) 58%, rgba(var(--acento-rgb), 0.28) 92%, transparent 92%);
+}
+
+.cita__foto { position: relative; margin: var(--foto-y) 0 0; }
+.cita__foto::before {                    /* rectángulo de color desplazado detrás */
+  content: "";
+  position: absolute;
+  inset: 12% -10% -8% 18%;
+  z-index: -1;
+  border-radius: var(--radio);
+  background: rgba(var(--acento-rgb), 0.16);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+.cita__foto img {
+  width: 100%;
+  aspect-ratio: 5 / 6;
+  object-fit: cover;
+  border-radius: var(--radio);
+  background: linear-gradient(145deg, rgba(var(--acento-rgb), 0.5), var(--navy));
+}
+
+@media (max-width: 880px) {
+  .cita { grid-template-columns: 1fr; grid-template-areas: "cabeza" "texto" "foto"; grid-template-rows: auto; }
+  .cita__foto { max-width: 460px; --foto-y: 2.4rem; }
+}
+
+
+
+
+/* ── 5.8  Beneficios ───────────────────────────────────────────────────────
+   Columna izquierda: encabezado + beneficios compartidos + acordeón de
+   pilares. Columna derecha: foto en forma irregular + post-it debajo.  */
+
+.dividido {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+.dividido--formulario { grid-template-columns: 1.3fr 0.7fr; }
+.seccion--oscuro .dividido { align-items: center; }
+@media (max-width: 960px) {
+  .dividido,
+  .dividido--formulario { grid-template-columns: 1fr; }
+}
+
+/* columna del texto más ancha: los pilares se leen en menos líneas */
+@media (min-width: 961px) { #beneficios .dividido { grid-template-columns: 1.2fr 0.8fr; } }
+
+/* beneficios compartidos: lo que gana cada lado */
+.beneficios {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  max-width: 620px;
+  margin: 1.4rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.beneficio {
+  display: grid;
+  gap: 0.3rem;
+  padding: 1rem 1.1rem 1.05rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--texto);
+  border-radius: var(--radio-chico);
+}
+.beneficio__para { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acento); }
+.bajada--cierre { margin-top: 1.3rem; }
+@media (max-width: 560px) { .beneficios { grid-template-columns: 1fr; } }
+
+/* figura + post-it debajo, que se monta sobre el borde de la foto */
+.beneficios-figura { display: flex; flex-direction: column; align-items: center; }
+.beneficios-figura .postit { z-index: 3; margin: -1.4rem 0 0; }
+@media (max-width: 960px) { .beneficios-figura .postit { margin-top: 2rem; } }
+
+
+
+
+/* ── 5.9  Preguntas frecuentes ─────────────────────────────────────────── */
+
+#preguntas .cabeza { margin-bottom: clamp(26px, 3vw, 40px); }
+
+
+
+
+/* ── 5.10  Guías: lecturas ─────────────────────────────────────────────────
+   Introducción con Expertito (css/08-expertito.css) + 3 tarjetas que se
+   abren aquí mismo + botón a la biblioteca.                            */
+
+.lecturas { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2vw, 1.6rem); align-items: start; }
+@media (max-width: 960px) { .lecturas { grid-template-columns: 1fr; max-width: 620px; } }
+
+.lectura { overflow: hidden; transition: transform var(--t-medio) var(--curva); }
+.lectura:hover { transform: translateY(-4px); }
+
+.lectura__foto { margin: 0; overflow: hidden; aspect-ratio: 3 / 2; background: linear-gradient(145deg, rgba(var(--acento-rgb), 0.5), var(--navy)); }
+.lectura__foto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; transition: transform 1.2s var(--curva); }
+.lectura:hover .lectura__foto img { transform: scale(1.06); }
+
+.lectura__cuerpo { padding: 1.6rem 1.7rem 1.8rem; }
+.lectura .lectura__categoria { margin-bottom: 0.6rem; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--m); }
+.lectura h3 { margin-bottom: 0.6rem; font-size: var(--fs-h3); }
+.lectura__cuerpo > p { font-size: var(--fs-cuerpo-chico); color: var(--s); }
+
+/* «Leer aquí» abre el resumen dentro de la tarjeta */
+.lectura__boton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 1.1rem;
+  padding: 0;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--t);
+  background: none;
+  border: 0;
+}
+.lectura__boton svg { width: 14px; height: 14px; transition: transform var(--t-medio) var(--curva); }
+.lectura__boton[aria-expanded="true"] svg { transform: rotate(180deg); }
+.lectura__boton .al-cerrar,
+.lectura__boton[aria-expanded="true"] .al-abrir { display: none; }
+.lectura__boton[aria-expanded="true"] .al-cerrar { display: inline; }
+
+.lectura__panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-medio) var(--curva); }
+.lectura__boton[aria-expanded="true"] + .lectura__panel { grid-template-rows: 1fr; }
+.lectura__panel > div { overflow: hidden; }
+.lectura__texto { margin-top: 1.1rem; padding-top: 1.1rem; border-top: 1px solid var(--l); font-size: 0.92rem; color: var(--s); }
+.lectura__texto > * + * { margin-top: 0.8rem; }
+
+/* «Leer la guía completa» */
+.lectura__enlace {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 1rem;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--acento);
+  text-decoration: none;
+}
+.lectura__enlace svg { width: 14px; height: 14px; transition: transform var(--t-medio) var(--curva); }
+.lectura__enlace:hover { text-decoration: underline; text-underline-offset: 3px; }
+.lectura__enlace:hover svg { transform: translateX(3px); }
+
+/* «Ver todas las guías» */
+.guias__mas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-top: clamp(1.6rem, 3vw, 2.4rem);
+}
+.guias__mas p { max-width: 52ch; font-size: 0.95rem; color: var(--texto-suave); }
+
+
+
+
+/* ── 5.11  Compromiso: llamado final ───────────────────────────────────── */
+
+.seccion--llamado { padding-block: calc(var(--seccion-y) * 1.15); text-align: center; }
+
+.llamado { max-width: 880px; margin-inline: auto; padding: clamp(2.2rem, 5vw, 4rem); border-radius: 36px; }
+.llamado .titular { font-size: clamp(1.8rem, 1.2rem + 1.9vw, 2.65rem); }
+.llamado .bajada { margin-inline: auto; }
+.llamado .botones { justify-content: center; }
+
+
+
+
+/* ── 5.12  Contacto ────────────────────────────────────────────────────────
+   Formulario (4.11) a la izquierda y cajas de contacto (4.13) a la
+   derecha, en .dividido--formulario (5.8).                              */
+
+
+
+
+/* ── 5.13  Página «Política de privacidad» (privacidad/index.html) ─────── */
+
+.legal-portada { padding-top: clamp(130px, 14vw, 180px); padding-bottom: clamp(16px, 2vw, 28px); }
+.legal-portada .cabeza { margin-bottom: 0; }
+.legal-portada h1 { font-size: clamp(2.2rem, 1.4rem + 3vw, 3.6rem); }
+.legal__fecha { margin-top: 1rem; font-size: 0.82rem; color: var(--texto-suave); }
+
+.legal-cuerpo { padding-top: clamp(16px, 2vw, 28px); }
+.legal {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: clamp(1.4rem, 3vw, 2.6rem);
+  align-items: start;
+}
+
+/* índice lateral fijo */
+.legal__indice { position: sticky; top: 110px; padding: 1.4rem 1.4rem 1.5rem; border-radius: var(--radio); }
+.legal__indice-titulo { margin-bottom: 0.8rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--acento); }
+.legal__indice ol { display: grid; gap: 0.45rem; margin: 0; padding: 0; list-style: none; }
+.legal__indice li { line-height: 1.35; }
+.legal__indice a { font-size: 0.84rem; line-height: 1.35; color: var(--texto-suave); text-decoration: none; }
+.legal__indice a:hover { color: #FFFFFF; }
+
+/* texto */
+.legal__texto { padding: clamp(1.6rem, 4vw, 3rem); border-radius: var(--radio); }
+.legal__bloque + .legal__bloque { margin-top: 2.2rem; padding-top: 2.2rem; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+.legal__bloque h2 { margin-bottom: 0.9rem; font-size: var(--fs-h3-grande); font-weight: 500; }
+.legal__bloque p { font-size: 0.98rem; }
+.legal__bloque p + p,
+.legal__bloque ul + p,
+.legal__bloque p + ul { margin-top: 0.9rem; }
+
+.legal__lista { display: grid; gap: 0.55rem; padding: 0; list-style: none; }
+.legal__lista li { position: relative; padding-left: 1.4rem; font-size: 0.95rem; }
+.legal__lista li::before {               /* viñeta: mini post-it */
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.68em;
+  width: 7px;
+  height: 7px;
+  border-radius: 1.5px;
+  background: linear-gradient(160deg, var(--postit-claro), var(--postit-base));
+  rotate: -6deg;
+}
+
+@media (max-width: 900px) {
+  .legal { grid-template-columns: 1fr; }
+  .legal__indice { position: static; }
+}

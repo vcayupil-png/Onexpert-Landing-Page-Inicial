@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!--
+  ══════════════════════════════════════════════════════════════════
+  ONEXPERT SERVICIOS · PÁGINA 404 (v12)
+  ──────────────────────────────────────────────────────────────────
+  Se muestra cuando alguien entra a una dirección que no existe.
+  El servidor la entrega en la MISMA URL rota (ej. /servicio/hola),
+  por eso todas las rutas cuelgan de <base href>:
+    · Sitio de prueba (kreatividademocional.com/servicio/) → <base href="/servicio/">
+    · Producción (servicios.onexpert.cl)                    → <base href="/">
+  Activarla en Apache: ver el archivo .htaccess (ErrorDocument 404).
+  No usa JavaScript: el dibujo de Expertito y su mirada son solo CSS.
+  noindex: los buscadores no deben guardar esta página.
+  ══════════════════════════════════════════════════════════════════
+-->
+<html lang="es-CL" data-sitio="servicios" class="js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <base href="/servicio/">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; base-uri 'self'; form-action 'none'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Página no encontrada | OneXpert Servicios</title>
+  <meta name="description" content="Esta página no existe o cambió de dirección. Vuelve al inicio de OneXpert Servicios o revisa nuestras guías.">
+  <meta name="robots" content="noindex, follow">
+  <link rel="icon" href="https://kreatividademocional.com/onexpert_servicios/imagenes/favicon/favicon.ico" sizes="32x32">
+  <link rel="icon" href="https://kreatividademocional.com/onexpert_servicios/imagenes/favicon/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#152838">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&amp;family=Handlee&amp;family=Poppins:wght@300;400;500;600;700&amp;display=swap">
+  <link rel="stylesheet" href="https://kreatividademocional.com/onexpert_servicios/css/01-tokens.css">
+  <link rel="stylesheet" href="https://kreatividademocional.com/onexpert_servicios/css/02-base.css">
+  <link rel="stylesheet" href="https://kreatividademocional.com/onexpert_servicios/css/03-vidrio.css">
+  <link rel="stylesheet" href="https://kreatividademocional.com/onexpert_servicios/css/04-componentes.css">
+  <style>
+    /* ── Solo para la 404 ─────────────────────────────────────────── */
+    body { min-height: 100svh; display: flex; flex-direction: column; }
+    .e404__cabecera { position: relative; z-index: 2; padding: 14px var(--margen) 0; }
+    .e404__cabecera .cabecera__barra { min-height: 70px; }
+    .e404 { flex: 1; display: grid; place-items: center; padding: clamp(28px, 5vh, 60px) var(--margen) clamp(40px, 8vh, 90px); text-align: center; }
+    .e404__caja { display: grid; justify-items: center; gap: clamp(1.4rem, 3.5vh, 2.2rem); }
+    /* «se despegó»: el post-it entra pegándose y luego cuelga de una esquina y se mece */
+    .e404__postit { margin: 0; width: clamp(200px, 32vh, 300px); }
+    .e404__postit img { display: block; width: 100%; height: auto; filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.3)); transform-origin: 88% 6%;
+      animation: e404-pega 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both, e404-despegado 6s ease-in-out 1.2s infinite; }
+    @keyframes e404-pega { from { opacity: 0; scale: 0.85; rotate: -10deg; } to { opacity: 1; scale: 1; rotate: 0deg; } }
+    @keyframes e404-despegado { 0%, 100% { rotate: 0deg; } 50% { rotate: 4deg; } }
+    .e404__codigo { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; color: var(--texto-suave); }
+    .e404 h1 { font-size: clamp(1.9rem, 1.3rem + 2.2vw, 2.9rem); font-weight: 300; }
+    .e404 h1 b { color: var(--acento-frase); }
+    .e404__mano { margin-top: -0.6rem; font-family: var(--fuente-firma); font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2.1rem); font-weight: 700; line-height: 1.1; color: var(--postit-medio); rotate: -1.5deg; }
+    .e404 .botones { justify-content: center; margin-top: 0.2rem; }
+    @media (prefers-reduced-motion: reduce) { .e404__postit img { animation: none !important; } }
+  </style>
+</head>
+<body>
+
+<div class="aurora" aria-hidden="true">
+  <span class="aurora__luz aurora__luz--1"></span>
+  <span class="aurora__luz aurora__luz--2"></span>
+  <span class="aurora__luz aurora__luz--3"></span>
+  <span class="aurora__luz aurora__luz--4"></span>
+  <span class="aurora__velo"></span>
+  <span class="aurora__trama"></span>
+</div>
+
+<header class="e404__cabecera">
+  <div class="cabecera__barra vidrio vidrio--pildora">
+    <a class="logo" href="https://kreatividademocional.com/onexpert_servicios/" aria-label="OneXpert Servicios, ir al inicio">
+      <img class="logo__img logo__img--blanco" src="https://kreatividademocional.com/onexpert_servicios/imagenes/logo/logo-onex-blanco.svg" alt="onexpert" width="510" height="139">
+      <span class="logo__unidad">Servicios</span>
+    </a>
+  </div>
+</header>
+
+<main class="e404" id="contenido">
+  <div class="e404__caja">
+    <!-- EXPERTITO · post-it en PNG con fondo transparente (350 × 350 px)
+         imagenes/expertito/expertito-postit.webp (+ .png de respaldo)
+         Rutas RELATIVAS: cuelgan de <base href> (arriba), así funcionan en
+         cualquier dirección rota. v12: antes decía /servicio_v11/…, que solo
+         existía en la carpeta de trabajo. -->
+    <figure class="e404__postit">
+      <picture>
+        <source srcset="https://kreatividademocional.com/onexpert_servicios/imagenes/expertito/expertito-postit.webp" type="image/webp">
+        <img src="https://kreatividademocional.com/onexpert_servicios/imagenes/expertito/expertito-postit.png" alt="Nota amarilla con la cara sonriente de Expertito, el personaje de OneXpert" width="350" height="350">
+      </picture>
+    </figure>
+
+    <p class="e404__codigo">ERROR 404</p>
+    <h1>Esta página <b>se despegó.</b></h1>
+    <p class="e404__mano">Tranqui, a ti no te perdemos de vista.</p>
+    <div class="botones">
+      <a class="boton boton--accion" href="https://kreatividademocional.com/onexpert_servicios/"><span class="boton__texto" data-texto="Volver al inicio"><span>Volver al inicio</span></span></a>
+      <a class="boton boton--contorno-claro" href="guias/"><span class="boton__texto" data-texto="Ver las guías"><span>Ver las guías</span></span></a>
+    </div>
+  </div>
+</main>
+
+</body>
+</html>

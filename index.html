@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<!--
+  ══════════════════════════════════════════════════════════════════════════
+  ONEXPERT SERVICIOS · BIBLIOTECA DE GUÍAS · https://servicios.onexpert.cl/guias/
+  ──────────────────────────────────────────────────────────────────────────
+  v12: cada guía vive en su propia carpeta (guias/<id>/index.html), con su
+  propia vista previa para redes. Esta página es el índice con filtro.
+    <head>   SEO · Open Graph · JSON-LD (Blog con todas las guías + migas)
+    <body>   cabecera → portada + guía destacada → tarjetas con filtro
+             → llamado → pie
+  Cómo AGREGAR una guía: seo/nueva-guia.md
+  Los enlaces antiguos (guias/#id) se redirigen solos a guias/id/ (js/guias.js).
+  ══════════════════════════════════════════════════════════════════════════
+-->
+<html lang="es-CL" data-sitio="servicios">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- 0 · SEGURIDAD · misma política que la página principal (index.html, bloque 0) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-/x7W7R75k8Roq0WaVRQX9blP4OufE5xbAdzklGxsgpw=' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; frame-src https://challenges.cloudflare.com https://outlook.office.com https://outlook.office365.com; connect-src 'self' https://challenges.cloudflare.com; form-action 'self'; base-uri 'self'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+
+
+  <!-- 1 · SEO -->
+  <title>Guías sobre siniestros y seguros en Chile | OneXpert Servicios</title>
+  <meta name="description" content="Guías prácticas para familias y compañías: indemnizaciones, reembolsos de salud, choques, catástrofes, Ley 21.719 y cómo preparar la operación de siniestros.">
+  <meta name="author" content="OneXpert">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://servicios.onexpert.cl/guias/">
+  <link rel="alternate" hreflang="es-CL" href="https://servicios.onexpert.cl/guias/">
+  <meta name="geo.region" content="CL">
+  <link rel="alternate" type="text/markdown" href="https://servicios.onexpert.cl/llms.txt" title="Resumen del sitio para asistentes de IA">
+
+
+
+  <!-- 2 · OPEN GRAPH · vista previa al compartir en WhatsApp, LinkedIn, Facebook y X
+       ⚠ Las imágenes apuntan al sitio de PRUEBA: al publicar, cambia
+         kreatividademocional.com/servicio por servicios.onexpert.cl (seo/open-graph.md) -->
+  <meta property="og:type"             content="website">
+  <meta property="og:locale"           content="es_CL">
+  <meta property="og:site_name"        content="OneXpert Servicios">
+  <meta property="og:url"              content="https://servicios.onexpert.cl/guias/">
+  <meta property="og:title"            content="Guías prácticas para familias y compañías después de un siniestro">
+  <meta property="og:description"      content="Guías prácticas para familias y compañías: indemnizaciones, reembolsos de salud, choques, catástrofes, Ley 21.719 y cómo preparar la operación de siniestros.">
+  <meta property="og:image"            content="https://kreatividademocional.com/servicio/imagenes/social/og-guias.jpg?v=2">
+  <meta property="og:image:secure_url" content="https://kreatividademocional.com/servicio/imagenes/social/og-guias.jpg?v=2">
+  <meta property="og:image:type"       content="image/jpeg">
+  <meta property="og:image:width"      content="1200">
+  <meta property="og:image:height"     content="630">
+  <meta property="og:image:alt"        content="Personaje de papel amarillo leyendo en una sala de clases, junto al título Guías Onex Servicios.">
+  <meta name="twitter:card"            content="summary_large_image">
+  <meta name="twitter:title"           content="Guías prácticas para familias y compañías después de un siniestro">
+  <meta name="twitter:description"     content="Guías prácticas para familias y compañías: indemnizaciones, reembolsos de salud, choques, catástrofes, Ley 21.719 y cómo preparar la operación de siniestros.">
+  <meta name="twitter:image"           content="https://kreatividademocional.com/servicio/imagenes/social/og-guias.jpg?v=2">
+
+
+
+  <!-- 3 · FAVICON -->
+  <link rel="icon" href="../imagenes/favicon/favicon.ico" sizes="32x32">
+  <link rel="icon" href="../imagenes/favicon/favicon-96x96.png" sizes="96x96" type="image/png">
+  <link rel="icon" href="../imagenes/favicon/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../imagenes/favicon/apple-touch-icon.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <meta name="theme-color" content="#152838">
+
+
+
+  <!-- 4 · TIPOGRAFÍA · misma petición que la página principal -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&amp;family=Handlee&amp;family=Poppins:wght@300;400;500;600;700&amp;display=swap">
+
+
+
+  <!-- 5 · ESTILOS · las hojas del sitio + 07-guias.css -->
+  <link rel="stylesheet" href="../css/01-tokens.css">
+  <link rel="stylesheet" href="../css/02-base.css">
+  <link rel="stylesheet" href="../css/03-vidrio.css">
+  <link rel="stylesheet" href="../css/04-componentes.css">
+  <link rel="stylesheet" href="../css/05-secciones.css">
+  <link rel="stylesheet" href="../css/06-movimiento.css">
+  <link rel="stylesheet" href="../css/07-guias.css">
+  <script>document.documentElement.classList.add('js');</script>
+
+
+
+  <!-- 6 · DATOS ESTRUCTURADOS · validar en https://validator.schema.org/ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://servicios.onexpert.cl/#organizacion",
+        "name": "OneXpert",
+        "alternateName": [
+          "OneXpert Servicios",
+          "Onex Servicios"
+        ],
+        "url": "https://servicios.onexpert.cl/",
+        "logo": "https://servicios.onexpert.cl/imagenes/logo/logo-onex.svg"
+      },
+      {
+        "@type": [
+          "CollectionPage",
+          "Blog"
+        ],
+        "@id": "https://servicios.onexpert.cl/guias/#blog",
+        "url": "https://servicios.onexpert.cl/guias/",
+        "name": "Guías OneXpert Servicios",
+        "headline": "Guías prácticas sobre siniestros para familias y compañías de seguros",
+        "description": "Guías sobre indemnizaciones, reembolsos de salud, choques, accidentes personales, catástrofes, Ley N° 21.719 y operación de siniestros en Chile.",
+        "inLanguage": "es-CL",
+        "isPartOf": {
+          "@type": "WebSite",
+          "@id": "https://servicios.onexpert.cl/#sitio",
+          "url": "https://servicios.onexpert.cl/",
+          "name": "OneXpert Servicios"
+        },
+        "publisher": {
+          "@id": "https://servicios.onexpert.cl/#organizacion"
+        },
+        "image": "https://servicios.onexpert.cl/imagenes/social/og-guias.jpg",
+        "dateModified": "2026-10-21",
+        "blogPost": [
+          {
+            "@type": "BlogPosting",
+            "@id": "https://servicios.onexpert.cl/guias/como-administrar-una-indemnizacion/#articulo",
+            "url": "https://servicios.onexpert.cl/guias/como-administrar-una-indemnizacion/",
+            "headline": "Cómo administrar una indemnización: el primer año sin errores",
+            "description": "Los errores más comunes del primer año y un orden simple para proteger el patrimonio familiar.",
+            "image": "https://servicios.onexpert.cl/imagenes/social/guias/como-administrar-una-indemnizacion.jpg",
+            "articleSection": "Familias",
+            "datePublished": "2026-10-14",
+            "dateModified": "2026-10-21"
+          },
+          {
+            "@type": "BlogPosting",
+            "@id": "https://servicios.onexpert.cl/guias/estudios-de-los-hijos-despues-de-un-siniestro/#articulo",
+            "url": "https://servicios.onexpert.cl/guias/estudios-de-los-hijos-despues-de-un-siniestro/",
+            "headline": "Por qué los estudios de los hijos necesitan seguimiento después de un siniestro",
+            "description": "La deserción escolar aparece meses después del pago, cuando ya nadie está mirando.",
+            "image": "https://servicios.onexpert.cl/imagenes/social/guias/estudios-de-los-hijos-despues-de-un-siniestro.jpg",
+            "articleSection": "Familias",
+            "datePublished": "2026-10-14",
+            "dateModified": "2026-10-21"
+          },
+          {
+            "@type": "BlogPosting",
+            "@id": "https://servicios.onexpert.cl/guias/primeras-72-horas-de-una-catastrofe/#articulo",
+            "url": "https://servicios.onexpert.cl/guias/primeras-72-horas-de-una-catastrofe/",
+            "headline": "Qué pasa en las primeras 72 horas de una catástrofe (y cómo prepararse)",
+            "description": "Un terremoto o un incendio forestal pueden multiplicar por diez los siniestros en horas.",
+            "image": "https://servicios.onexpert.cl/imagenes/social/guias/primeras-72-horas-de-una-catastrofe.jpg",
+            "articleSection": "Compañías",
+            "datePublished": "2026-10-14",
+            "dateModified": "2026-10-21"
+          },
+          {
+            "@type": "BlogPosting",
+            "@id": "https://servicios.onexpert.cl/guias/que-hacer-despues-de-un-choque/#articulo",
+            "url": "https://servicios.onexpert.cl/guias/que-hacer-despues-de-un-choque/",
+            "headline": "Choque o daño en tu auto: 6 pasos para denunciar bien el siniestro",
+            "description": "Lo que haces en la primera hora después de un choque define cuán rápido avanza tu caso.",
+            "image": "https://servicios.onexpert.cl/imagenes/social/guias/que-hacer-despues-de-un-choque.jpg",
+            "articleSection": "Familias",
+            "datePublished": "2026-10-14",
+            "dateModified": "2026-10-21"
+          },
+          {
+            "@type": "BlogPosting",
+            "@id": "https://servicios.onexpert.cl/guias/reembolsos-de-salud-sin-rechazos/#articulo",
+            "url": "https://servicios.onexpert.cl/guias/reembolsos-de-salud-sin-rechazos/",
+            "headline": "Reembolsos de salud: cómo enviar tus documentos sin rechazos",
+            "description": "La mayoría de los reembolsos se demoran por un documento ilegible o una firma que falta.",
+            "image": "https://servicios.onexpert.cl/imagenes/social/guias/reembolsos-de-salud-sin-rechazos.jpg",
+            "articleSection": "Familias",
+            "datePublished": "2026-10-14",
+            "dateModified": "2026-10-21"
+          },
+          {
+            "@type": "BlogPosting",
+            "@id": "https://servicios.onexpert.cl/guias/seguro-de-accidentes-personales/#articulo",
+            "url": "https://servicios.onexpert.cl/guias/seguro-de-accidentes-personales/",
+            "headline": "Accidentes personales: qué suele cubrir el seguro y cómo acreditar el siniestro",
+            "description": "Una lesión inesperada trae gastos y trámites. Esto es lo que conviene tener a mano.",
+            "image": "https://servicios.onexpert.cl/imagenes/social/guias/seguro-de-accidentes-personales.jpg",
+            "articleSection": "Familias",
+            "datePublished": "2026-10-14",
+            "dateModified": "2026-10-21"
+          },
+          {
+            "@type": "BlogPosting",
+            "@id": "https://servicios.onexpert.cl/guias/preparar-la-operacion-de-siniestros-para-los-peaks/#articulo",
+            "url": "https://servicios.onexpert.cl/guias/preparar-la-operacion-de-siniestros-para-los-peaks/",
+            "headline": "Cómo entrenar la operación de siniestros para los peaks (sin agrandar el equipo)",
+            "description": "Señales de que tu operación ya no da abasto y cuándo conviene un tercero administrador (TPA).",
+            "image": "https://servicios.onexpert.cl/imagenes/social/guias/preparar-la-operacion-de-siniestros-para-los-peaks.jpg",
+            "articleSection": "Compañías",
+            "datePublished": "2026-10-14",
+            "dateModified": "2026-10-21"
+          },
+          {
+            "@type": "BlogPosting",
+            "@id": "https://servicios.onexpert.cl/guias/ley-21719-datos-sensibles-siniestros/#articulo",
+            "url": "https://servicios.onexpert.cl/guias/ley-21719-datos-sensibles-siniestros/",
+            "headline": "Ley N° 21.719: qué exigirle a quien administra tus siniestros",
+            "description": "Desde el 1 de diciembre de 2026 rige la nueva ley de datos personales. Los siniestros de vida y salud están en el centro.",
+            "image": "https://servicios.onexpert.cl/imagenes/social/guias/ley-21719-datos-sensibles-siniestros.jpg",
+            "articleSection": "Compañías",
+            "datePublished": "2026-10-14",
+            "dateModified": "2026-10-21"
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Inicio",
+            "item": "https://servicios.onexpert.cl/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Guías",
+            "item": "https://servicios.onexpert.cl/guias/"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="pagina-guias">
+
+<a class="salto" href="#contenido">Saltar al contenido principal</a>
+
+<div class="aurora" aria-hidden="true">
+  <span class="aurora__luz aurora__luz--1"></span>
+  <span class="aurora__luz aurora__luz--2"></span>
+  <span class="aurora__luz aurora__luz--3"></span>
+  <span class="aurora__luz aurora__luz--4"></span>
+  <span class="aurora__velo"></span>
+  <span class="aurora__trama"></span>
+</div>
+
+
+
+
+<!-- ═══ CABECERA · cápsula de vidrio flotante ════════════════════════════════
+     Menú: Audiencias · Soluciones · Respaldo · Beneficios · Preguntas · Guías · Contacto
+     La «gota» de vidrio bajo el enlace activo la mueve js/v8.js §1.
+     El enlace activo al bajar lo calcula js/interacciones.js §3.            -->
+<header class="cabecera" data-seccion="cabecera">
+  <div class="cabecera__barra vidrio vidrio--pildora">
+
+    <a class="logo" href="../" aria-label="OneXpert Servicios, ir al inicio">
+      <!-- LOGOTIPO · imagenes/logo/*.svg -->
+      <img class="logo__img logo__img--color" src="../imagenes/logo/logo-onex.svg" alt="" aria-hidden="true" width="510" height="139">
+      <img class="logo__img logo__img--blanco" src="../imagenes/logo/logo-onex-blanco.svg" alt="OneXpert Servicios" width="510" height="139">
+      <span class="logo__unidad">Servicios</span>
+    </a>
+
+    <nav class="nav" aria-label="Navegación principal">
+      <a class="nav__enlace" href="../#audiencias">Audiencias</a>
+      <a class="nav__enlace" href="../#soluciones">Soluciones</a>
+      <a class="nav__enlace" href="../#respaldo">Respaldo</a>
+      <a class="nav__enlace" href="../#beneficios">Beneficios</a>
+      <a class="nav__enlace" href="../#preguntas">Preguntas</a>
+      <a class="nav__enlace" href="./" aria-current="page">Guías</a>
+      <a class="nav__enlace" href="../#contacto">Contacto</a>
+    </nav>
+
+    <div class="cabecera__acciones">
+      <!-- CITA EN LÍNEA · abre la ventana «Agenda una cita» (js/v8.js §5) -->
+      <a class="boton boton--cita boton--chico" href="mailto:contacto@onexpert.cl?subject=Solicitud%20de%20cita%20OneXpert%20Servicios" data-bookings><svg class="boton__icono" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="14" height="12.5" rx="2.5"/><path d="M3 8.5h14M7 2.8v3.4M13 2.8v3.4M7.5 12.5l1.8 1.8 3.4-3.6"/></svg><span class="boton__texto texto-largo" data-texto="Agenda una cita"><span>Agenda una cita</span></span><span class="boton__texto texto-corto" data-texto="Cita"><span>Cita</span></span></a>
+      <button class="menu-boton" type="button" aria-expanded="false" aria-controls="panel-menu" aria-label="Abrir menú">
+        <span class="menu-boton__linea"></span><span class="menu-boton__linea"></span>
+      </button>
+    </div>
+
+    <span class="cabecera__progreso" aria-hidden="true"></span>
+  </div>
+</header>
+<!-- ─── CABECERA · fin ────────────────────────────────────────────────────── -->
+
+
+
+
+<!-- ═══ MENÚ LATERAL · pantallas medianas y móviles ═════════════════════════
+     inert: mientras está cerrado sus enlaces no reciben foco
+     (lo quita js/interacciones.js §2).                                      -->
+<div class="panel-menu" id="panel-menu" inert>
+  <div class="panel-menu__fondo" data-cerrar-menu></div>
+  <nav class="panel-menu__cuerpo" aria-label="Menú">
+    <a class="panel-menu__enlace" href="../#audiencias">Audiencias</a>
+    <a class="panel-menu__enlace" href="../#soluciones">Soluciones</a>
+    <a class="panel-menu__enlace" href="../#respaldo">Respaldo</a>
+    <a class="panel-menu__enlace" href="../#beneficios">Beneficios</a>
+    <a class="panel-menu__enlace" href="../#preguntas">Preguntas</a>
+    <a class="panel-menu__enlace" href="./" aria-current="page">Guías</a>
+    <a class="panel-menu__enlace" href="../#contacto">Contacto</a>
+    <div class="panel-menu__pie">
+      <a class="panel-menu__cruce" href="https://liquidadora.onexpert.cl/">Ir a OneXpert Liquidadora<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10h12M11 5.5l4.5 4.5-4.5 4.5"/></svg></a>
+      <a class="panel-menu__cruce" href="mailto:comercial@onexpert.cl">comercial@onexpert.cl<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10h12M11 5.5l4.5 4.5-4.5 4.5"/></svg></a>
+    </div>
+  </nav>
+</div>
+<!-- ─── MENÚ LATERAL · fin ────────────────────────────────────────────────── -->
+
+
+
+
+<main id="contenido">
+
+
+
+
+<!-- ═══ PORTADA DE GUÍAS + GUÍA DESTACADA ═════════════════════════════════ -->
+<section class="seccion seccion--transparente guias-portada" aria-labelledby="guias-titulo">
+  <div class="contenedor">
+
+    <nav class="migas" aria-label="Migas de pan"><a href="../">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">Guías</span></nav>
+
+    <header class="cabeza revelar">
+      <p class="rotulo">Guías Onex Servicios</p>
+      <h1 id="guias-titulo">Guías prácticas sobre siniestros, <b>para familias y compañías.</b></h1>
+      <p class="bajada">Qué hacer con una indemnización, cómo pedir un reembolso sin rechazos, qué pasa en una catástrofe y cómo preparar la operación de tu compañía. Respuestas claras, en minutos.</p>
+    </header>
+
+    <!-- GUÍA DESTACADA · Cómo administrar una indemnización: el primer año sin errores -->
+    <article class="guia-destacada vidrio revelar" data-cat="Familias">
+      <a class="guia-destacada__enlace" href="como-administrar-una-indemnizacion/">
+        <figure class="guia-destacada__foto">
+          <picture>
+            <source srcset="../imagenes/guias/guia-indemnizacion.webp" type="image/webp">
+            <img src="../imagenes/guias/guia-indemnizacion.jpg" alt="Personaje de papel amarillo durmiendo junto a un reloj: antes de decidir qué hacer con una indemnización, date tiempo" width="1400" height="782" loading="eager" decoding="async">
+          </picture>
+        </figure>
+        <div class="guia-destacada__cuerpo">
+          <p class="guia-destacada__etiqueta">Guía destacada</p>
+          <span class="guia-meta"><span class="guia-meta__cat" data-cat="Familias">Familias</span><span class="guia-meta__tiempo"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7.2"/><path d="M10 6v4l2.6 1.6"/></svg>4 min de lectura</span></span>
+          <h2>Cómo administrar una indemnización: el primer año sin errores</h2>
+          <p>Los errores más comunes del primer año y un orden simple para proteger el patrimonio familiar.</p>
+          <span class="boton boton--accion"><span class="boton__texto" data-texto="Leer la guía"><span>Leer la guía</span></span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10h12M11 5.5l4.5 4.5-4.5 4.5"/></svg></span>
+        </div>
+      </a>
+    </article>
+
+  </div>
+</section>
+<!-- ─── PORTADA DE GUÍAS · fin ────────────────────────────────────────────── -->
+
+
+
+
+<!-- ═══ BIBLIOTECA · tarjetas con filtro (js/guias.js) ═════════════════════ -->
+<section class="seccion seccion--transparente guias-biblioteca" id="biblioteca" aria-labelledby="biblioteca-titulo">
+  <div class="contenedor">
+
+    <div class="guias-barra">
+      <h2 class="guias-barra__titulo" id="biblioteca-titulo">Todas las guías</h2>
+      <!-- FILTRO · sin JS se ven todas -->
+      <div class="filtro" role="group" aria-label="Filtrar guías">
+        <button class="filtro__boton" type="button" data-filtro-cat="todas" aria-pressed="true">Todas <span>8</span></button>
+        <button class="filtro__boton" type="button" data-filtro-cat="Familias" aria-pressed="false">Familias <span>5</span></button>
+        <button class="filtro__boton" type="button" data-filtro-cat="Compañías" aria-pressed="false">Compañías <span>3</span></button>
+      </div>
+    </div>
+
+    <div class="guias-rejilla">
+
+        <!-- TARJETA 1 de 7 · Por qué los estudios de los hijos necesitan seguimiento después de un siniestro -->
+        <article class="guia-tarjeta vidrio revelar" data-cat="Familias" data-retraso="1">
+          <a class="guia-tarjeta__enlace" href="estudios-de-los-hijos-despues-de-un-siniestro/">
+            <figure class="guia-tarjeta__foto">
+              <picture>
+                <source srcset="../imagenes/guias/guia-estudios.webp" type="image/webp">
+                <img src="../imagenes/guias/guia-estudios.jpg" alt="Personaje de papel amarillo con lentes leyendo un libro en una sala de clases" width="1400" height="782" loading="lazy" decoding="async">
+              </picture>
+            </figure>
+            <div class="guia-tarjeta__cuerpo">
+              <span class="guia-meta"><span class="guia-meta__cat" data-cat="Familias">Familias</span><span class="guia-meta__tiempo"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7.2"/><path d="M10 6v4l2.6 1.6"/></svg>3 min de lectura</span></span>
+              <h3>Por qué los estudios de los hijos necesitan seguimiento después de un siniestro</h3>
+              <p>La deserción escolar aparece meses después del pago, cuando ya nadie está mirando.</p>
+              <span class="guia-tarjeta__leer">Leer guía<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10h12M11 5.5l4.5 4.5-4.5 4.5"/></svg></span>
+            </div>
+          </a>
+        </article>
+
+        <!-- TARJETA 2 de 7 · Qué pasa en las primeras 72 horas de una catástrofe (y cómo prepararse) -->
+        <article class="guia-tarjeta vidrio revelar" data-cat="Compañías" data-retraso="2">
+          <a class="guia-tarjeta__enlace" href="primeras-72-horas-de-una-catastrofe/">
+            <figure class="guia-tarjeta__foto">
+              <picture>
+                <source srcset="../imagenes/guias/guia-catastrofe.webp" type="image/webp">
+                <img src="../imagenes/guias/guia-catastrofe.jpg" alt="Personaje de papel amarillo vestido de bombero junto a un fuego de papel en una cocina" width="1400" height="782" loading="lazy" decoding="async">
+              </picture>
+            </figure>
+            <div class="guia-tarjeta__cuerpo">
+              <span class="guia-meta"><span class="guia-meta__cat" data-cat="Compañías">Compañías</span><span class="guia-meta__tiempo"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7.2"/><path d="M10 6v4l2.6 1.6"/></svg>4 min de lectura</span></span>
+              <h3>Qué pasa en las primeras 72 horas de una catástrofe (y cómo prepararse)</h3>
+              <p>Un terremoto o un incendio forestal pueden multiplicar por diez los siniestros en horas.</p>
+              <span class="guia-tarjeta__leer">Leer guía<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10h12M11 5.5l4.5 4.5-4.5 4.5"/></svg></span>
+            </div>
+          </a>
+        </article>
+
+        <!-- TARJETA 3 de 7 · Choque o daño en tu auto: 6 pasos para denunciar bien el siniestro -->
+        <article class="guia-tarjeta vidrio revelar" data-cat="Familias" data-retraso="3">
+          <a class="guia-tarjeta__enlace" href="que-hacer-despues-de-un-choque/">
+            <figure class="guia-tarjeta__foto">
+              <picture>
+                <source srcset="../imagenes/guias/guia-choque-auto.webp" type="image/webp">
+                <img src="../imagenes/guias/guia-choque-auto.jpg" alt="Personaje de papel amarillo con lentes pensando junto a un auto azul, con una ampolleta encendida sobre su cabeza" width="1400" height="782" loading="lazy" decoding="async">
+              </picture>
+            </figure>
+            <div class="guia-tarjeta__cuerpo">
+              <span class="guia-meta"><span class="guia-meta__cat" data-cat="Familias">Familias</span><span class="guia-meta__tiempo"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7.2"/><path d="M10 6v4l2.6 1.6"/></svg>4 min de lectura</span></span>
+              <h3>Choque o daño en tu auto: 6 pasos para denunciar bien el siniestro</h3>
+              <p>Lo que haces en la primera hora después de un choque define cuán rápido avanza tu caso.</p>
+              <span class="guia-tarjeta__leer">Leer guía<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10h12M11 5.5l4.5 4.5-4.5 4.5"/></svg></span>
+            </div>
+          </a>
+        </article>
+
+        <!-- TARJETA 4 de 7 · Reembolsos de salud: cómo enviar tus documentos sin rechazos -->
+        <article class="guia-tarjeta vidrio revelar" data-cat="Familias" data-retraso="1">
+          <a class="guia-tarjeta__enlace" href="reembolsos-de-salud-sin-rechazos/">
+            <figure class="guia-tarjeta__foto">
+              <picture>
+                <source srcset="../imagenes/guias/guia-reembolso-salud.webp" type="image/webp">
+                <img src="../imagenes/guias/guia-reembolso-salud.jpg" alt="Personaje de papel amarillo vestido de doctor con una tablilla junto a una persona que descansa en cama" width="1400" height="782" loading="lazy" decoding="async">
+              </picture>
+            </figure>
+            <div class="guia-tarjeta__cuerpo">
+              <span class="guia-meta"><span class="guia-meta__cat" data-cat="Familias">Familias</span><span class="guia-meta__tiempo"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7.2"/><path d="M10 6v4l2.6 1.6"/></svg>3 min de lectura</span></span>
+              <h3>Reembolsos de salud: cómo enviar tus documentos sin rechazos</h3>
+              <p>La mayoría de los reembolsos se demoran por un documento ilegible o una firma que falta.</p>
+              <span class="guia-tarjeta__leer">Leer guía<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10h12M11 5.5l4.5 4.5-4.5 4.5"/></svg></span>
+            </div>
+          </a>
+        </article>
+
+        <!-- TARJETA 5 de 7 · Accidentes personales: qué suele cubrir el seguro y cómo acreditar el siniestro -->
+        <article class="guia-tarjeta vidrio revelar" data-cat="Familias" data-retraso="2">
+          <a class="guia-tarjeta__enlace" href="seguro-de-accidentes-personales/">
+            <figure class="guia-tarjeta__foto">
+              <picture>
+                <source srcset="../imagenes/guias/guia-accidentes.webp" type="image/webp">
+                <img src="../imagenes/guias/guia-accidentes.jpg" alt="Personaje de papel amarillo con los pies vendados y una muleta, apoyado en un lavamanos" width="1400" height="782" loading="lazy" decoding="async">
+              </picture>
+            </figure>
+            <div class="guia-tarjeta__cuerpo">
+              <span class="guia-meta"><span class="guia-meta__cat" data-cat="Familias">Familias</span><span class="guia-meta__tiempo"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7.2"/><path d="M10 6v4l2.6 1.6"/></svg>3 min de lectura</span></span>
+              <h3>Accidentes personales: qué suele cubrir el seguro y cómo acreditar el siniestro</h3>
+              <p>Una lesión inesperada trae gastos y trámites. Esto es lo que conviene tener a mano.</p>
+              <span class="guia-tarjeta__leer">Leer guía<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10h12M11 5.5l4.5 4.5-4.5 4.5"/></svg></span>
+            </div>
+          </a>
+        </article>
+
+        <!-- TARJETA 6 de 7 · Cómo entrenar la operación de siniestros para los peaks (sin agrandar el equipo) -->
+        <article class="guia-tarjeta vidrio revelar" data-cat="Compañías" data-retraso="3">
+          <a class="guia-tarjeta__enlace" href="preparar-la-operacion-de-siniestros-para-los-peaks/">
+            <figure class="guia-tarjeta__foto">
+              <picture>
+                <source srcset="../imagenes/guias/guia-operacion-peaks.webp" type="image/webp">
+                <img src="../imagenes/guias/guia-operacion-peaks.jpg" alt="Personaje de papel amarillo haciendo flexiones en el piso de un gimnasio" width="1400" height="782" loading="lazy" decoding="async">
+              </picture>
+            </figure>
+            <div class="guia-tarjeta__cuerpo">
+              <span class="guia-meta"><span class="guia-meta__cat" data-cat="Compañías">Compañías</span><span class="guia-meta__tiempo"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7.2"/><path d="M10 6v4l2.6 1.6"/></svg>4 min de lectura</span></span>
+              <h3>Cómo entrenar la operación de siniestros para los peaks (sin agrandar el equipo)</h3>
+              <p>Señales de que tu operación ya no da abasto y cuándo conviene un tercero administrador (TPA).</p>
+              <span class="guia-tarjeta__leer">Leer guía<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10h12M11 5.5l4.5 4.5-4.5 4.5"/></svg></span>
+            </div>
+          </a>
+        </article>
+
+        <!-- TARJETA 7 de 7 · Ley N° 21.719: qué exigirle a quien administra tus siniestros -->
+        <article class="guia-tarjeta vidrio revelar" data-cat="Compañías" data-retraso="1">
+          <a class="guia-tarjeta__enlace" href="ley-21719-datos-sensibles-siniestros/">
+            <figure class="guia-tarjeta__foto">
+              <picture>
+                <source srcset="../imagenes/fotos/documentos-revision.webp" type="image/webp">
+                <img src="../imagenes/fotos/documentos-revision.jpg" alt="Mujer revisando con atención documentos impresos junto a su computador" width="1000" height="667" loading="lazy" decoding="async">
+              </picture>
+            </figure>
+            <div class="guia-tarjeta__cuerpo">
+              <span class="guia-meta"><span class="guia-meta__cat" data-cat="Compañías">Compañías</span><span class="guia-meta__tiempo"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7.2"/><path d="M10 6v4l2.6 1.6"/></svg>4 min de lectura</span></span>
+              <h3>Ley N° 21.719: qué exigirle a quien administra tus siniestros</h3>
+              <p>Desde el 1 de diciembre de 2026 rige la nueva ley de datos personales. Los siniestros de vida y salud están en el centro.</p>
+              <span class="guia-tarjeta__leer">Leer guía<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10h12M11 5.5l4.5 4.5-4.5 4.5"/></svg></span>
+            </div>
+          </a>
+        </article>
+
+    </div>
+  </div>
+</section>
+<!-- ─── BIBLIOTECA · fin ──────────────────────────────────────────────────── -->
+
+
+
+
+<!-- ═══ LLAMADO · para compañías ════════════════════════════════════════════ -->
+<section class="seccion seccion--transparente seccion--llamado" aria-labelledby="llamado-titulo">
+  <div class="contenedor">
+    <div class="llamado vidrio vidrio--acanalado revelar">
+      <p class="rotulo">Para compañías de seguros</p>
+      <h2 class="titular" id="llamado-titulo">¿Quieres que tus asegurados reciban <b>este acompañamiento?</b></h2>
+      <p class="bajada">Onex Servicios se suma a tu cartera como un beneficio que tus clientes recuerdan. Te mostramos cómo funciona con un caso real anonimizado.</p>
+      <div class="botones">
+        <a class="boton boton--accion" href="mailto:contacto@onexpert.cl?subject=Solicitud%20de%20cita%20OneXpert%20Servicios" data-bookings data-magnetico><svg class="boton__icono" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="14" height="12.5" rx="2.5"/><path d="M3 8.5h14M7 2.8v3.4M13 2.8v3.4M7.5 12.5l1.8 1.8 3.4-3.6"/></svg><span class="boton__texto" data-texto="Solicita una cita en línea"><span>Solicita una cita en línea</span></span></a>
+        <a class="boton boton--vidrio" href="../#beneficios"><span class="boton__texto" data-texto="Conocer los beneficios"><span>Conocer los beneficios</span></span></a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ─── LLAMADO · fin ─────────────────────────────────────────────────────── -->
+
+</main>
+
+
+
+
+<!-- ═══ PIE DE PÁGINA ════════════════════════════════════════════════════════
+     Cuatro columnas: marca · Soluciones · Beneficios · Contacto.
+     Los enlaces a tarjetas horizontales y a pilares llegan al bloque exacto
+     y abren el acordeón (js/v10.js §1).
+     Correos: el texto de ayuda (tooltip) está en <span class="ayuda">.     -->
+<footer class="pie" data-seccion="pie">
+
+  <!-- TEXTURA · video de vidrio acanalado en movimiento (decorativo) -->
+  <div class="pie__textura" aria-hidden="true">
+    <video muted loop playsinline preload="none" poster="../video/textura-pie-poster.jpg" tabindex="-1">
+      <source src="../video/textura-pie.webm" type="video/webm">
+      <source src="../video/textura-pie.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="contenedor">
+    <div class="pie__rejilla">
+
+      <!-- COLUMNA 1 · marca -->
+      <div class="pie__marca">
+        <a class="logo" href="../" aria-label="OneXpert Servicios, ir al inicio">
+          <img class="logo__img logo__img--color" src="../imagenes/logo/logo-onex.svg" alt="" aria-hidden="true" width="510" height="139">
+          <img class="logo__img logo__img--blanco" src="../imagenes/logo/logo-onex-blanco.svg" alt="OneXpert Servicios" width="510" height="139">
+          <span class="logo__unidad">Servicios</span>
+        </a>
+        <p>Tercero administrador de siniestros para compañías de seguros en Chile. Nuestro compromiso es tu confianza.</p>
+      </div>
+
+      <!-- COLUMNA 2 · Soluciones -->
+      <div>
+        <h4>Soluciones</h4>
+        <ul>
+          <li><a href="../#gestion-de-siniestros">Administración de siniestros (TPA)</a></li>
+          <li><a href="../#catastrofes">Eventos de gran escala</a></li>
+          <li><a href="../#enlaces-tecnologicos">Integración con tus sistemas</a></li>
+          <li><a href="../#indicadores">Indicadores y SLA</a></li>
+          <li><a href="../#respaldo">Respaldo</a></li>
+        </ul>
+      </div>
+
+      <!-- COLUMNA 3 · Beneficios -->
+      <div>
+        <h4>Beneficios</h4>
+        <ul>
+          <li><a href="../#portal-del-asegurado">Portal del asegurado</a></li>
+          <li><a href="../#liquidacion-agil">Liquidación ágil y prolija</a></li>
+          <li><a href="../#reporteria-gestion-riesgos">Reportería para gestión de riesgos</a></li>
+          <li><a href="./">Guías para compañías y familias</a></li>
+        </ul>
+      </div>
+
+      <!-- COLUMNA 4 · Contacto -->
+      <div>
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="mailto:contacto@onexpert.cl?subject=Solicitud%20de%20cita%20OneXpert%20Servicios" data-bookings>Agenda una cita</a></li>
+          <li>
+            <a class="pie__correo" href="mailto:comercial@onexpert.cl" aria-describedby="ayuda-comercial"><svg class="pie__icono" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="15" height="11" rx="2"/><path d="m3.2 5.6 6.8 5.2 6.8-5.2"/></svg>contacto@onexpert.cl</a>
+            <span class="ayuda" id="ayuda-comercial" role="tooltip">Para compañías de seguros, corredores y sponsors: cotizaciones, demostraciones y alianzas. Lunes a viernes, 9:00 a 18:00 h.</span>
+          </li>
+          
+          <li><a href="privacidad/">Política de privacidad</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="pie__legal">
+      <span>© 2026 OneXpert. Onex Servicios es una marca de servicios de OneXpert.</span>
+      <span>Los servicios de acompañamiento no son liquidación de siniestros ni actividad fiscalizada por la CMF.</span>
+    </div>
+  </div>
+</footer>
+<!-- ─── PIE DE PÁGINA · fin ───────────────────────────────────────────────── -->
+
+
+
+
+<!-- SCRIPTS · con defer, no bloquean la carga -->
+<script src="../js/parallax.js" defer></script>
+<script src="../js/interacciones.js" defer></script>
+<script src="../js/v8.js" defer></script>
+<script src="../js/guias.js" defer></script>
+</body>
+</html>
